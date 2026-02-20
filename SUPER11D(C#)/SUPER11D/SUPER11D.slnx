@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="BL/BL.csproj" />
+  <Project Path="DAL/DAL.csproj" />
+  <Project Path="ET/ET.csproj" />
+  <Project Path="SUPER11D/GUI.csproj" />
+</Solution>
