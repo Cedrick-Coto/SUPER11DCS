@@ -6,20 +6,27 @@ namespace SUPER11D
         {
             InitializeComponent();
         }
+        #region Mis variables globales
+        int EstadoGuarda = 0;
+        int IdCategoria = 0;
 
-        private void DgvPrincipal_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        #endregion
+
+
+
+
+        #region Mis Metodos
+        //Crea un formato, disposicion de como se van a ver los datos, que se van a  imprimir en el data view
+        private void FormatoCA()
         {
-
+            DgvPrincipal.Columns[0].Width = 100;
+            DgvPrincipal.Columns[0].HeaderText = "ID Categoria";
+            DgvPrincipal.Columns[1].Width = 100;
+            DgvPrincipal.Columns[1].HeaderText = "Categoria";
         }
+        #endregion
 
-        private void label1_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
+

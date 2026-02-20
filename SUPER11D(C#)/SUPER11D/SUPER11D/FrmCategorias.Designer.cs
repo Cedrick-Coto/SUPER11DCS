@@ -115,7 +115,7 @@
             BtnNuevo.TabIndex = 4;
             BtnNuevo.Text = "Nuevo";
             BtnNuevo.UseVisualStyleBackColor = false;
-            BtnNuevo.Click += button2_Click;
+            
             // 
             // BtnReporte
             // 
@@ -148,7 +148,7 @@
             DgvPrincipal.Name = "DgvPrincipal";
             DgvPrincipal.Size = new Size(797, 198);
             DgvPrincipal.TabIndex = 0;
-            DgvPrincipal.CellContentClick += DgvPrincipal_CellContentClick;
+            
             // 
             // label1
             // 
@@ -158,7 +158,7 @@
             label1.Size = new Size(42, 15);
             label1.TabIndex = 1;
             label1.Text = "Buscar";
-            label1.Click += label1_Click;
+            
             // 
             // TxtBuscar
             // 
