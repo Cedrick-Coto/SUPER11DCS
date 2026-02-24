@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Data.SqlClient;
-
+using Microsoft.Data.SqlClient;
 namespace DAL
 {
     public class Conexion
@@ -20,28 +19,33 @@ namespace DAL
             this._Server = "DESKTOP-B8F8KCS";
             this._seguridad = true;
         }
-        public SqlConnection CrearConexion()
+        public SqlConnection CrearConexion
         {
-            SqlConnection cadena = new SqlConnection();
-            try
+            get
             {
-                cadena.ConnectionString = "Server =" + this._Server + ";Database=" + this._Base + ";Integrated Security=" + this._seguridad;
-                if (_seguridad)
+                SqlConnection cadena = new SqlConnection();
+                try
                 {
-                    cadena.ConnectionString = cadena.ConnectionString + "Integrated Security=SSPI";
+                    cadena.ConnectionString = "Server=" + this._Server + ";Database=" + this._Base + ";";
+                    if (_seguridad)
+                    {
+                        cadena.ConnectionString += "Integrated Security=SSPI;";
+                    }
+                    else
+                    {
+                        // Aquí iría la conexión si fuese un server de BD
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    // Aquí iría la conexión si fuese un server de BD
-                }
-            } catch (Exception ex)
-            {
-                cadena = null;
-                throw ex;
+                    cadena = null;
+                    throw ex;
 
+                }
+                return cadena;
             }
-            return cadena;
         }
+
         public static Conexion GetInstancia()
         {
             if (Con == null)
