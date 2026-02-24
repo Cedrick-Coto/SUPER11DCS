@@ -39,7 +39,8 @@ namespace SUPER11D
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + ex);
+                MessageBox.Show(ex.Message + ex.StackTrace);
+                throw ex;
             }
 
         }

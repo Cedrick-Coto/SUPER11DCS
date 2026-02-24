@@ -12,7 +12,7 @@ namespace DAL
             SqlConnection SqlCon= new SqlConnection(); //Instancia a la Conexion a la BD
             try {
                 //Establecer la conexion con la BD
-                SqlCon=Conexion.GetInstancia().CrearConexion();
+                SqlCon=Conexion.GetInstancia().CrearConexion;
                 SqlCommand comando = new SqlCommand("sp_ListadoCA", SqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
                 //Parametro de busqueda
