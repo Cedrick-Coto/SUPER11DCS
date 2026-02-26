@@ -30,26 +30,26 @@
         {
             Mantenimiento = new TabControl();
             tabPage1 = new TabPage();
+            button3 = new Button();
+            TxtBuscar = new TextBox();
+            label1 = new Label();
+            DgvPrincipal = new DataGridView();
             tabPage2 = new TabPage();
+            BtnRegresar = new Button();
+            BtnGuardar = new Button();
+            BtnCancelar = new Button();
+            button6 = new Button();
+            txtDescripPr = new TextBox();
+            Categorias = new Label();
             BtnActualizar = new Button();
             BtnNuevo = new Button();
             BtnReporte = new Button();
             BtnSalir = new Button();
-            DgvPrincipal = new DataGridView();
-            label1 = new Label();
-            TxtBuscar = new TextBox();
-            button3 = new Button();
-            button6 = new Button();
-            txtDescripPr = new TextBox();
-            Categorias = new Label();
             BtnEliminar = new Button();
-            BtnCancelar = new Button();
-            BtnGuardar = new Button();
-            BtnRegresar = new Button();
             Mantenimiento.SuspendLayout();
             tabPage1.SuspendLayout();
-            tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvPrincipal).BeginInit();
+            tabPage2.SuspendLayout();
             SuspendLayout();
             // 
             // Mantenimiento
@@ -76,6 +76,42 @@
             tabPage1.Text = "Listado";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // button3
+            // 
+            button3.BackColor = Color.DodgerBlue;
+            button3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button3.ForeColor = SystemColors.ControlLight;
+            button3.Location = new Point(273, 6);
+            button3.Name = "button3";
+            button3.Size = new Size(75, 23);
+            button3.TabIndex = 1;
+            button3.Text = "Buscar";
+            button3.UseVisualStyleBackColor = false;
+            // 
+            // TxtBuscar
+            // 
+            TxtBuscar.Location = new Point(80, 6);
+            TxtBuscar.Name = "TxtBuscar";
+            TxtBuscar.Size = new Size(187, 23);
+            TxtBuscar.TabIndex = 2;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(32, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(42, 15);
+            label1.TabIndex = 1;
+            label1.Text = "Buscar";
+            // 
+            // DgvPrincipal
+            // 
+            DgvPrincipal.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgvPrincipal.Location = new Point(16, 44);
+            DgvPrincipal.Name = "DgvPrincipal";
+            DgvPrincipal.Size = new Size(797, 198);
+            DgvPrincipal.TabIndex = 0;
+            // 
             // tabPage2
             // 
             tabPage2.Controls.Add(BtnRegresar);
@@ -92,92 +128,42 @@
             tabPage2.Text = "Mantenimiento";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // BtnActualizar
+            // BtnRegresar
             // 
-            BtnActualizar.BackColor = Color.DodgerBlue;
-            BtnActualizar.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnActualizar.ForeColor = SystemColors.ControlLight;
-            BtnActualizar.Location = new Point(177, 339);
-            BtnActualizar.Name = "BtnActualizar";
-            BtnActualizar.Size = new Size(75, 23);
-            BtnActualizar.TabIndex = 3;
-            BtnActualizar.Text = "Actualizar";
-            BtnActualizar.UseVisualStyleBackColor = false;
+            BtnRegresar.BackColor = Color.DodgerBlue;
+            BtnRegresar.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnRegresar.ForeColor = SystemColors.ControlLight;
+            BtnRegresar.Location = new Point(168, 211);
+            BtnRegresar.Name = "BtnRegresar";
+            BtnRegresar.Size = new Size(75, 23);
+            BtnRegresar.TabIndex = 8;
+            BtnRegresar.Text = "Regresar";
+            BtnRegresar.UseVisualStyleBackColor = false;
             // 
-            // BtnNuevo
+            // BtnGuardar
             // 
-            BtnNuevo.BackColor = Color.DodgerBlue;
-            BtnNuevo.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnNuevo.ForeColor = SystemColors.ControlLight;
-            BtnNuevo.Location = new Point(96, 339);
-            BtnNuevo.Name = "BtnNuevo";
-            BtnNuevo.Size = new Size(75, 23);
-            BtnNuevo.TabIndex = 4;
-            BtnNuevo.Text = "Nuevo";
-            BtnNuevo.UseVisualStyleBackColor = false;
-            
+            BtnGuardar.BackColor = Color.DodgerBlue;
+            BtnGuardar.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnGuardar.ForeColor = SystemColors.ControlLight;
+            BtnGuardar.Location = new Point(87, 211);
+            BtnGuardar.Name = "BtnGuardar";
+            BtnGuardar.Size = new Size(75, 23);
+            BtnGuardar.TabIndex = 7;
+            BtnGuardar.Text = "Guardar";
+            BtnGuardar.UseVisualStyleBackColor = false;
+            BtnGuardar.Click += BtnGuardar_Click;
             // 
-            // BtnReporte
+            // BtnCancelar
             // 
-            BtnReporte.BackColor = Color.DodgerBlue;
-            BtnReporte.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnReporte.ForeColor = SystemColors.ControlLight;
-            BtnReporte.Location = new Point(339, 339);
-            BtnReporte.Name = "BtnReporte";
-            BtnReporte.Size = new Size(75, 23);
-            BtnReporte.TabIndex = 6;
-            BtnReporte.Text = "Reporte";
-            BtnReporte.UseVisualStyleBackColor = false;
-            // 
-            // BtnSalir
-            // 
-            BtnSalir.BackColor = Color.DodgerBlue;
-            BtnSalir.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnSalir.ForeColor = SystemColors.ControlLight;
-            BtnSalir.Location = new Point(420, 339);
-            BtnSalir.Name = "BtnSalir";
-            BtnSalir.Size = new Size(75, 23);
-            BtnSalir.TabIndex = 7;
-            BtnSalir.Text = "Salir";
-            BtnSalir.UseVisualStyleBackColor = false;
-            // 
-            // DgvPrincipal
-            // 
-            DgvPrincipal.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DgvPrincipal.Location = new Point(16, 44);
-            DgvPrincipal.Name = "DgvPrincipal";
-            DgvPrincipal.Size = new Size(797, 198);
-            DgvPrincipal.TabIndex = 0;
-            
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(32, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(42, 15);
-            label1.TabIndex = 1;
-            label1.Text = "Buscar";
-            
-            // 
-            // TxtBuscar
-            // 
-            TxtBuscar.Location = new Point(80, 6);
-            TxtBuscar.Name = "TxtBuscar";
-            TxtBuscar.Size = new Size(187, 23);
-            TxtBuscar.TabIndex = 2;
-            // 
-            // button3
-            // 
-            button3.BackColor = Color.DodgerBlue;
-            button3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.ForeColor = SystemColors.ControlLight;
-            button3.Location = new Point(273, 6);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 23);
-            button3.TabIndex = 1;
-            button3.Text = "Buscar";
-            button3.UseVisualStyleBackColor = false;
+            BtnCancelar.BackColor = Color.DodgerBlue;
+            BtnCancelar.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnCancelar.ForeColor = SystemColors.ControlLight;
+            BtnCancelar.Location = new Point(6, 211);
+            BtnCancelar.Name = "BtnCancelar";
+            BtnCancelar.Size = new Size(75, 23);
+            BtnCancelar.TabIndex = 6;
+            BtnCancelar.Text = "Cancelar";
+            BtnCancelar.UseVisualStyleBackColor = false;
             // 
             // button6
             // 
@@ -207,6 +193,55 @@
             Categorias.TabIndex = 4;
             Categorias.Text = "Categorias(*)";
             // 
+            // BtnActualizar
+            // 
+            BtnActualizar.BackColor = Color.DodgerBlue;
+            BtnActualizar.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnActualizar.ForeColor = SystemColors.ControlLight;
+            BtnActualizar.Location = new Point(177, 339);
+            BtnActualizar.Name = "BtnActualizar";
+            BtnActualizar.Size = new Size(75, 23);
+            BtnActualizar.TabIndex = 3;
+            BtnActualizar.Text = "Actualizar";
+            BtnActualizar.UseVisualStyleBackColor = false;
+            // 
+            // BtnNuevo
+            // 
+            BtnNuevo.BackColor = Color.DodgerBlue;
+            BtnNuevo.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnNuevo.ForeColor = SystemColors.ControlLight;
+            BtnNuevo.Location = new Point(96, 339);
+            BtnNuevo.Name = "BtnNuevo";
+            BtnNuevo.Size = new Size(75, 23);
+            BtnNuevo.TabIndex = 4;
+            BtnNuevo.Text = "Nuevo";
+            BtnNuevo.UseVisualStyleBackColor = false;
+            BtnNuevo.Click += BtnNuevo_Click;
+            // 
+            // BtnReporte
+            // 
+            BtnReporte.BackColor = Color.DodgerBlue;
+            BtnReporte.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnReporte.ForeColor = SystemColors.ControlLight;
+            BtnReporte.Location = new Point(339, 339);
+            BtnReporte.Name = "BtnReporte";
+            BtnReporte.Size = new Size(75, 23);
+            BtnReporte.TabIndex = 6;
+            BtnReporte.Text = "Reporte";
+            BtnReporte.UseVisualStyleBackColor = false;
+            // 
+            // BtnSalir
+            // 
+            BtnSalir.BackColor = Color.DodgerBlue;
+            BtnSalir.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnSalir.ForeColor = SystemColors.ControlLight;
+            BtnSalir.Location = new Point(420, 339);
+            BtnSalir.Name = "BtnSalir";
+            BtnSalir.Size = new Size(75, 23);
+            BtnSalir.TabIndex = 7;
+            BtnSalir.Text = "Salir";
+            BtnSalir.UseVisualStyleBackColor = false;
+            // 
             // BtnEliminar
             // 
             BtnEliminar.BackColor = Color.DodgerBlue;
@@ -218,42 +253,6 @@
             BtnEliminar.TabIndex = 5;
             BtnEliminar.Text = "Eliminar";
             BtnEliminar.UseVisualStyleBackColor = false;
-            // 
-            // BtnCancelar
-            // 
-            BtnCancelar.BackColor = Color.DodgerBlue;
-            BtnCancelar.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnCancelar.ForeColor = SystemColors.ControlLight;
-            BtnCancelar.Location = new Point(6, 211);
-            BtnCancelar.Name = "BtnCancelar";
-            BtnCancelar.Size = new Size(75, 23);
-            BtnCancelar.TabIndex = 6;
-            BtnCancelar.Text = "Cancelar";
-            BtnCancelar.UseVisualStyleBackColor = false;
-            // 
-            // BtnGuardar
-            // 
-            BtnGuardar.BackColor = Color.DodgerBlue;
-            BtnGuardar.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnGuardar.ForeColor = SystemColors.ControlLight;
-            BtnGuardar.Location = new Point(87, 211);
-            BtnGuardar.Name = "BtnGuardar";
-            BtnGuardar.Size = new Size(75, 23);
-            BtnGuardar.TabIndex = 7;
-            BtnGuardar.Text = "Guardar";
-            BtnGuardar.UseVisualStyleBackColor = false;
-            // 
-            // BtnRegresar
-            // 
-            BtnRegresar.BackColor = Color.DodgerBlue;
-            BtnRegresar.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnRegresar.ForeColor = SystemColors.ControlLight;
-            BtnRegresar.Location = new Point(168, 211);
-            BtnRegresar.Name = "BtnRegresar";
-            BtnRegresar.Size = new Size(75, 23);
-            BtnRegresar.TabIndex = 8;
-            BtnRegresar.Text = "Regresar";
-            BtnRegresar.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -268,12 +267,13 @@
             Controls.Add(Mantenimiento);
             Name = "Form1";
             Text = "CATEGORIAS";
+            Load += Form1_Load;
             Mantenimiento.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)DgvPrincipal).EndInit();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)DgvPrincipal).EndInit();
             ResumeLayout(false);
         }
 

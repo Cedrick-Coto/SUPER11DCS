@@ -1,4 +1,5 @@
 using BL;
+using ET;
 using System.Drawing.Text;
 
 namespace SUPER11D
@@ -45,6 +46,23 @@ namespace SUPER11D
 
         }
         #endregion
+        #region Metodos miscelaneos
+        private void EstadoBotonesPrincipales(bool lEstado)
+        {
+            this.BtnNuevo.Enabled = lEstado;
+            this.BtnActualizar.Enabled = lEstado;
+            this.BtnReporte.Enabled = lEstado;
+            this.BtnEliminar.Enabled = lEstado;
+            this.BtnSalir.Enabled = lEstado;
+        }
+        private void EstadoBotonesProcesos(bool lEstado)
+        {
+            this.BtnGuardar.Visible = lEstado;
+            this.BtnCancelar.Visible = lEstado;
+            this.BtnRegresar.Visible = lEstado;
+        }
+        #endregion
+
         #region Cargar el combo de categorias
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -52,6 +70,55 @@ namespace SUPER11D
 
         }
         #endregion
+
+        private void BtnNuevo_Click(object sender, EventArgs e)
+        {
+            EstadoGuarda = 1;
+            this.EstadoBotonesProcesos(true);
+            this.EstadoBotonesPrincipales(false);
+            //Limpiar los controles
+            txtDescripPr.Text = "";
+            txtDescripPr.ReadOnly = false;
+            //Poner el cursor en el control de texto
+            Mantenimiento.SelectedIndex = 1;
+            txtDescripPr.Focus();
+        }
+
+        private void BtnGuardar_Click(object sender, EventArgs e)
+        {
+            if (txtDescripPr.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar una descripcion para la categoria", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                EstadoGuarda = 0;
+                this.EstadoBotonesPrincipales(true);
+                this.EstadoBotonesProcesos(false);
+                txtDescripPr.Text = "";
+                Mantenimiento.SelectedIndex = 0;
+                this.IdCategoria = 0;
+            }
+            else
+            {
+                ET_Categoria ca = new ET_Categoria();
+                string Rpta = "";
+                ca.IdCategoria = this.IdCategoria;
+                ca.cDescripcion_ca = this.txtDescripPr.Text.Trim();
+                Rpta = BL_Categoria.GuardarCA(EstadoGuarda, ca);
+                if (Rpta.Equals("OK"))
+                {
+                    this.ListadoCA("%");
+                    MessageBox.Show("Los datos se guardaron correctamente", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.EstadoBotonesProcesos(false);
+                    this.EstadoBotonesPrincipales(true);
+                    txtDescripPr.Text = "";
+                    Mantenimiento.SelectedIndex = 0;
+                    this.IdCategoria = 0;
+                }
+                else
+                {
+                    MessageBox.Show(Rpta, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
     }
 }
 
