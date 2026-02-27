@@ -205,6 +205,7 @@
             BtnActualizar.TabIndex = 3;
             BtnActualizar.Text = "Actualizar";
             BtnActualizar.UseVisualStyleBackColor = false;
+            BtnActualizar.Click += BtnActualizar_Click;
             // 
             // BtnNuevo
             // 
@@ -255,6 +256,7 @@
             BtnEliminar.TabIndex = 5;
             BtnEliminar.Text = "Eliminar";
             BtnEliminar.UseVisualStyleBackColor = false;
+            BtnEliminar.Click += BtnEliminar_Click;
             // 
             // Form1
             // 

@@ -66,5 +66,30 @@ namespace DAL
             }
             return Rpta;
         }
+        public string EliminarCA(int IdCategoria)
+        {
+            SqlConnection sqlConnection = new SqlConnection();
+            string Rpta = "";
+            try
+            {
+                //Realizar la conexion con la BD creando una instancia a la clase Conexion (pregunta de examen)
+                sqlConnection = Conexion.GetInstancia().CrearConexion;
+                SqlCommand sqlCommand = new SqlCommand("USP_Eliminar_ca", sqlConnection);
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                //Parametro para el procedimiento almacenado
+                sqlCommand.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = IdCategoria;
+                sqlConnection.Open();
+                Rpta = sqlCommand.ExecuteNonQuery() == 1 ? "OK" : "No se pudo eliminar el registro";
+            }
+            catch (Exception ex)
+            {
+                Rpta = ex.Message;
+            }
+            finally
+            {
+                if (sqlConnection.State == ConnectionState.Open) sqlConnection.Close();
+            }
+            return Rpta;
+        }
     }
 }

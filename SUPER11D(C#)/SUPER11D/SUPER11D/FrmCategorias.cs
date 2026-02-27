@@ -1,5 +1,6 @@
 using BL;
 using ET;
+using System.Diagnostics;
 using System.Drawing.Text;
 
 namespace SUPER11D
@@ -27,6 +28,21 @@ namespace SUPER11D
             DgvPrincipal.Columns[0].HeaderText = "ID Categoria";
             DgvPrincipal.Columns[1].Width = 100;
             DgvPrincipal.Columns[1].HeaderText = "Categoria";
+        }
+        private void SeleccionaItem()
+        {
+            //Validar que el campo no este vacio
+            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.Cells["IdCategoria"].Value)))
+            {
+                MessageBox.Show("No se pudo seleccionar el registro", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                //Asignar los valores a las variables globales
+                this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdCategoria"].Value);
+                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionCa"].Value);
+            }
+
         }
         #endregion
 
@@ -131,6 +147,50 @@ namespace SUPER11D
             this.EstadoBotonesPrincipales(true);
             Mantenimiento.SelectedIndex = 0;
             this.IdCategoria = 0;
+        }
+
+        private void BtnActualizar_Click(object sender, EventArgs e)
+        {
+            EstadoGuarda = 2;
+            this.EstadoBotonesProcesos(true);
+            this.EstadoBotonesPrincipales(false);
+            this.SeleccionaItem();
+            txtDescripPr.ReadOnly = false;
+            Mantenimiento.SelectedIndex = 1;
+            txtDescripPr.Focus();
+        }
+
+        private void BtnEliminar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.Cells["IdCategoria"].Value)))
+            {
+                MessageBox.Show("No se pudo seleccionar el registro", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                DialogResult Opcion;
+                Opcion = MessageBox.Show("¿Realmente desea eliminar el registro seleccionado?", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (Opcion == DialogResult.No)
+                {
+                    return;
+                }
+                else
+                {
+                    this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdCategoria"].Value);
+                    string Rpta = "";
+                    Rpta = BL_Categoria.EliminarCA(this.IdCategoria);
+                    if (Rpta.Equals("OK"))
+                    {
+                        this.ListadoCA("%");
+                        MessageBox.Show("Los datos se eliminaron correctamente", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.IdCategoria = 0;
+                    }
+                    else
+                    {
+                        MessageBox.Show(Rpta, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
         }
     }
 }
