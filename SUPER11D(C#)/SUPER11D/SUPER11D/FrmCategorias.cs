@@ -119,6 +119,19 @@ namespace SUPER11D
                 }
             }
         }
+
+        private void BtnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void BtnRegresar_Click(object sender, EventArgs e)
+        {
+            this.EstadoBotonesProcesos(false);
+            this.EstadoBotonesPrincipales(true);
+            Mantenimiento.SelectedIndex = 0;
+            this.IdCategoria = 0;
+        }
     }
 }
 

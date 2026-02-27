@@ -139,6 +139,7 @@
             BtnRegresar.TabIndex = 8;
             BtnRegresar.Text = "Regresar";
             BtnRegresar.UseVisualStyleBackColor = false;
+            BtnRegresar.Click += BtnRegresar_Click;
             // 
             // BtnGuardar
             // 
@@ -241,6 +242,7 @@
             BtnSalir.TabIndex = 7;
             BtnSalir.Text = "Salir";
             BtnSalir.UseVisualStyleBackColor = false;
+            BtnSalir.Click += BtnSalir_Click;
             // 
             // BtnEliminar
             // 
