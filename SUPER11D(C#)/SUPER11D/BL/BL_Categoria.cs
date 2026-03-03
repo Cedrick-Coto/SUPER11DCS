@@ -1,5 +1,4 @@
 ﻿using DAL;
-using ET;
 using System.Data;
 
 namespace BL
@@ -16,10 +15,10 @@ namespace BL
             DAL_Categoria Datos = new DAL_Categoria();
             return Datos.GuardarCA(nOption, ca);
         }
-        public static string EliminarCA(int IdCategoria)
+        public static string EliminarCA(int IdMarca)
         {
             DAL_Categoria Datos = new DAL_Categoria();
-            return Datos.EliminarCA(IdCategoria);
+            return Datos.EliminarCA(IdMarca);
         }
     }
 }
