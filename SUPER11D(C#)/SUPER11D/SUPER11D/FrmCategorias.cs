@@ -5,9 +5,9 @@ using System.Drawing.Text;
 
 namespace SUPER11D
 {
-    public partial class FrmMarca : Form
+    public partial class Form1 : Form
     {
-        public FrmMarca()
+        public Form1()
         {
             InitializeComponent();
         }
@@ -80,7 +80,7 @@ namespace SUPER11D
         #endregion
 
         #region Cargar el combo de categorias
-        private void FrmMarca_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
             this.ListadoCA("%");
 

@@ -40,7 +40,7 @@ namespace SUPER11D
             {
                 //Asignar los valores a las variables globales
                 this.IdProductos = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdProductos"].Value);
-                txtDescripMA.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionCa"].Value);
+                txtDescripPR.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionCa"].Value);
             }
 
         }
@@ -93,22 +93,22 @@ namespace SUPER11D
             this.EstadoBotonesProcesos(true);
             this.EstadoBotonesPrincipales(false);
             //Limpiar los controles
-            txtDescripMA.Text = "";
-            txtDescripMA.ReadOnly = false;
+            txtDescripPR.Text = "";
+            txtDescripPR.ReadOnly = false;
             //Poner el cursor en el control de texto
             Mantenimiento.SelectedIndex = 1;
-            txtDescripMA.Focus();
+            txtDescripPR.Focus();
         }
 
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
-            if (txtDescripMA.Text.Trim() == "")
+            if (txtDescripPR.Text.Trim() == "")
             {
                 MessageBox.Show("Debe ingresar una descripcion para la Productos", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 EstadoGuarda = 0;
                 this.EstadoBotonesPrincipales(true);
                 this.EstadoBotonesProcesos(false);
-                txtDescripMA.Text = "";
+                txtDescripPR.Text = "";
                 Mantenimiento.SelectedIndex = 0;
                 this.IdProductos = 0;
             }
@@ -117,7 +117,7 @@ namespace SUPER11D
                 ET_Producto ca = new ET_Producto();
                 string Rpta = "";
                 ca.IdProductos = this.IdProductos;
-                ca.cDescripcion_ca = this.txtDescripMA.Text.Trim();
+                ca.cDescripcion_ca = this.txtDescripPR.Text.Trim();
                 Rpta = BL_Producto.GuardarMA(EstadoGuarda, ca);
                 if (Rpta.Equals("OK"))
                 {
@@ -125,7 +125,7 @@ namespace SUPER11D
                     MessageBox.Show("Los datos se guardaron correctamente", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.EstadoBotonesProcesos(false);
                     this.EstadoBotonesPrincipales(true);
-                    txtDescripMA.Text = "";
+                    txtDescripPR.Text = "";
                     Mantenimiento.SelectedIndex = 0;
                     this.IdProductos = 0;
                 }
@@ -155,9 +155,9 @@ namespace SUPER11D
             this.EstadoBotonesProcesos(true);
             this.EstadoBotonesPrincipales(false);
             this.SeleccionaItem();
-            txtDescripMA.ReadOnly = false;
+            txtDescripPR.ReadOnly = false;
             Mantenimiento.SelectedIndex = 1;
-            txtDescripMA.Focus();
+            txtDescripPR.Focus();
         }
 
         private void BtnEliminar_Click(object sender, EventArgs e)
