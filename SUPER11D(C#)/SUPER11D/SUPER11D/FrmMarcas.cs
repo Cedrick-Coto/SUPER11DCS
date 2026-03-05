@@ -114,11 +114,11 @@ namespace SUPER11D
             }
             else
             {
-                ET_Marca ca = new ET_Marca();
+                ET_Marca ma = new ET_Marca();
                 string Rpta = "";
-                ca.IdMarca = this.IdMarca;
-                ca.cDescripcion_ma = this.txtDescripPr.Text.Trim();
-                Rpta = BL_Marca.GuardarCA(EstadoGuarda, ca);
+                ma.IdMarca = this.IdMarca;
+                ma.cDescripcion_ma = this.txtDescripPr.Text.Trim();
+                Rpta = BL_Marca.GuardarCA(EstadoGuarda, ma);
                 if (Rpta.Equals("OK"))
                 {
                     this.ListadoCA("%");
