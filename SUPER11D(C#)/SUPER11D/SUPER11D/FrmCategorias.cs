@@ -40,7 +40,7 @@ namespace SUPER11D
             {
                 //Asignar los valores a las variables globales
                 this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdCategoria"].Value);
-                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionCa"].Value);
+                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["cDescripcion_ca"].Value);
             }
 
         }

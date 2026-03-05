@@ -1,197 +1,333 @@
+// Referencia a la capa de Lógica de Negocio
 using BL;
+// Referencia a la capa de Entidades
 using ET;
-using System.Diagnostics;
-using System.Drawing.Text;
 
 namespace SUPER11D
 {
+    /// <summary>
+    /// Formulario para gestionar las categorías del sistema.
+    /// Permite listar, crear, actualizar y eliminar categorías.
+    /// </summary>
     public partial class FrmProductos : Form
     {
+        /// <summary>
+        /// Constructor del formulario.
+        /// Inicializa los componentes visuales del formulario.
+        /// </summary>
         public FrmProductos()
         {
             InitializeComponent();
         }
+
         #region Mis variables globales
+
+        // Variable que controla el estado de guardado:
+        // 0 = Sin acción
+        // 1 = Insertar nueva categoría
+        // 2 = Actualizar categoría existente
         int EstadoGuarda = 0;
-        int IdProductos = 0;
+
+        // Almacena el ID de la categoría seleccionada para edición
+        // 0 = Nueva categoría
+        // >0 = Categoría existente
+        int IdCategoria = 0;
 
         #endregion
 
+        #region Mis Métodos
 
-
-
-        #region Mis Metodos
-        //Crea un formato, disposicion de como se van a ver los datos, que se van a  imprimir en el data view
-        private void FormatoMA()
+        /// <summary>
+        /// Configura el formato de las columnas del DataGridView.
+        /// Define el ancho y los encabezados de las columnas que se mostrarán.
+        /// </summary>
+        private void FormatoCA()
         {
-            DgvPrincipal.Columns[0].Width = 100;
-            DgvPrincipal.Columns[0].HeaderText = "ID ";
-            DgvPrincipal.Columns[1].Width = 100;
-            DgvPrincipal.Columns[1].HeaderText = "Productos";
-        }
-        private void SeleccionaItem()
-        {
-            //Validar que el campo no este vacio
-            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.Cells["IdProductos"].Value)))
+            // Verifica que existan al menos 2 columnas antes de formatear
+            if (DgvPrincipal.Columns.Count >= 2)
             {
-                MessageBox.Show("No se pudo seleccionar el registro", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                //Asignar los valores a las variables globales
-                this.IdProductos = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdProductos"].Value);
-                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionCa"].Value);
-            }
+                // Columna 0: ID de la categoría
+                DgvPrincipal.Columns[0].Width = 100;
+                DgvPrincipal.Columns[0].HeaderText = "ID Categoria";
 
+                // Columna 1: Descripción de la categoría
+                DgvPrincipal.Columns[1].Width = 100;
+                DgvPrincipal.Columns[1].HeaderText = "Categoria";
+            }
         }
-        #endregion
 
-        #region Listado de Productos
-        private void ListadoMA(string cTexto)
+        /// Carga y muestra el listado de categorías en el DataGridView.
+        /// Ejecuta una consulta a la base de datos a través de las capas BL y DAL.
+        /// <param name="ctexto">Texto de búsqueda para filtrar categorías. 
+        /// Usar "%" para mostrar todas las categorías.</param>
+        private void ListadoCA(string ctexto)
         {
             try
             {
-                DgvPrincipal.DataSource = BL_Producto.ListadoMA(cTexto);
-                this.FormatoMA();
+                // Llama a la capa de negocio para obtener los datos
+                // y los asigna como origen de datos del DataGridView
+                DgvPrincipal.DataSource = BL_Categoria.ListadoCA(ctexto);
+
+                // Aplica el formato a las columnas del DataGridView
+                this.FormatoCA();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + ex.StackTrace);
-                throw ex;
+                // Captura cualquier error y lo muestra al usuario
+                // con detalles para facilitar la depuración
+                MessageBox.Show($"Error al cargar datos: {ex.Message}\n\nStackTrace: {ex.StackTrace}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
+
+
+        /// Controla el estado (habilitado/deshabilitado) de los botones principales del formulario.
+        /// <param name="LEstado">true = habilita los botones, false = deshabilita los botones</param>
+        private void EstadoBotonesPrincipales(bool LEstado)
+        {
+            // Habilita o deshabilita los botones de acciones principales
+            this.btnNuevo.Enabled = LEstado;
+            this.btnActualizar.Enabled = LEstado;
+            this.btnEliminar.Enabled = LEstado;
+            this.btnReporte.Enabled = LEstado;
+            this.btnSalir.Enabled = LEstado;
+        }
+
+
+        /// Controla la visibilidad de los botones de procesos (Guardar, Cancelar, Regresar).
+
+        /// name="LEstado">true = muestra los botones, false = oculta los botones
+        private void EstadoBotonesProcesos(bool LEstado)
+        {
+            // Muestra u oculta los botones de procesos de mantenimiento
+            this.btnCancelar.Visible = LEstado;
+            this.btnGuardar.Visible = LEstado;
+            this.btnRegresar.Visible = LEstado;
+        }
+
         #endregion
-        #region Metodos miscelaneos
-        private void EstadoBotonesPrincipales(bool lEstado)
-        {
-            this.BtnNuevo.Enabled = lEstado;
-            this.BtnActualizar.Enabled = lEstado;
-            this.BtnReporte.Enabled = lEstado;
-            this.BtnEliminar.Enabled = lEstado;
-            this.BtnSalir.Enabled = lEstado;
-        }
-        private void EstadoBotonesProcesos(bool lEstado)
-        {
-            this.BtnGuardar.Visible = lEstado;
-            this.BtnCancelar.Visible = lEstado;
-            this.BtnRegresar.Visible = lEstado;
-        }
-        #endregion
 
-        #region Cargar el combo de Producto
-        private void FrmProductos_Load(object sender, EventArgs e)
+        private void SeleccionaItem()
         {
-            this.ListadoMA("%");
-
-        }
-        #endregion
-
-        private void BtnNuevo_Click(object sender, EventArgs e)
-        {
-            EstadoGuarda = 1;
-            this.EstadoBotonesProcesos(true);
-            this.EstadoBotonesPrincipales(false);
-            //Limpiar los controles
-            txtDescripPr.Text = "";
-            txtDescripPr.ReadOnly = false;
-            //Poner el cursor en el control de texto
-            Mantenimiento.SelectedIndex = 1;
-            txtDescripPr.Focus();
-        }
-
-        private void BtnGuardar_Click(object sender, EventArgs e)
-        {
-            if (txtDescripPr.Text.Trim() == "")
+            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
+                Cells["IdProductos"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia 
             {
-                MessageBox.Show("Debe ingresar una descripcion para la Productos", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                EstadoGuarda = 0;
-                this.EstadoBotonesPrincipales(true);
-                this.EstadoBotonesProcesos(false);
-                txtDescripPr.Text = "";
-                Mantenimiento.SelectedIndex = 0;
-                this.IdProductos = 0;
+
+                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
             }
             else
             {
-                ET_Producto pr = new ET_Producto();
+                this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.
+                    Cells["IdProducto"].Value);
+                txtDescripCa.Text = Convert.ToString(DgvPrincipal.CurrentRow.
+                Cells["cDescripcion_ca"].Value);
+            }
+        }
+        #region Eventos del Formulario
+
+
+        /// Evento que se ejecuta cuando el formulario se carga por primera vez.
+        /// Inicializa el estado del formulario y carga los datos iniciales.
+
+        private void FrmCategorias_Load(object sender, EventArgs e)
+        {
+            // Carga todas las categorías (% = comodín para traer todos los registros)
+            this.ListadoCA("%");
+
+            // Habilita los botones principales (Nuevo, Actualizar, Eliminar, etc.)
+            this.EstadoBotonesPrincipales(true);
+
+            // Oculta los botones de procesos (Guardar, Cancelar, Regresar)
+            this.EstadoBotonesProcesos(false);
+
+            // Bloquea el campo de texto para evitar ediciones no autorizadas
+            txtDescripCa.ReadOnly = true;
+        }
+
+
+        /// Evento del botón Nuevo.
+        /// Prepara el formulario para ingresar una nueva categoría.
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            // Establece el estado a 1 (Insertar nueva categoría)
+            EstadoGuarda = 1;
+
+            // Deshabilita los botones principales para evitar conflictos
+            this.EstadoBotonesPrincipales(false);
+
+            // Muestra los botones de proceso (Guardar, Cancelar, Regresar)
+            this.EstadoBotonesProcesos(true);
+
+            // Limpia el campo de texto
+            txtDescripCa.Text = "";
+
+            // Habilita el campo de texto para permitir la escritura
+            txtDescripCa.ReadOnly = false;
+
+            // Cambia a la pestaña de Mantenimiento (índice 1)
+            TbpPrincipal.SelectedIndex = 1;
+
+            // Coloca el cursor en el campo de texto para que el usuario pueda escribir inmediatamente
+            txtDescripCa.Focus();
+        }
+
+        /// Evento del botón Guardar.
+        /// Valida y guarda la categoría (nueva o actualizada) en la base de datos.
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            // Valida que el campo de descripción no esté vacío
+            if (txtDescripCa.Text == String.Empty)
+            {
+                // Muestra un mensaje de advertencia si no se ingresó descripción
+                MessageBox.Show("Debe ingresar una descripción para el producto",
+                    "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                // Crea una instancia de la entidad Categoría
+                ET_Categoria eT_Categoria = new ET_Categoria();
+
+                // Variable para almacenar la respuesta del proceso de guardado
                 string Rpta = "";
-                pr.IdProductos = this.IdProductos;
-                pr.cDescripcion_ca = this.txtDescripPr.Text.Trim();
-                Rpta = BL_Producto.GuardarMA(EstadoGuarda, pr);
-                if (Rpta.Equals("OK"))
+
+                // Asigna el ID de la categoría (0 para nueva, >0 para actualizar)
+                eT_Categoria.IdCategoria = IdCategoria;
+
+                // Asigna la descripción ingresada, eliminando espacios al inicio y final
+                eT_Categoria.cDescripcion_ca = txtDescripCa.Text.Trim();
+
+                // Llama al método de la capa de negocio para guardar la categoría
+                // EstadoGuarda indica si es inserción (1) o actualización (2)
+                Rpta = BL_Categoria.GuardarCA(EstadoGuarda, eT_Categoria);
+
+                // Verifica si el guardado fue exitoso
+                if (Rpta == "OK")
                 {
-                    this.ListadoMA("%");
-                    MessageBox.Show("Los datos se guardaron correctamente", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.EstadoBotonesProcesos(false);
+                    // Recarga el listado de categorías para mostrar los cambios
+                    this.ListadoCA("%");
+
+                    // Muestra mensaje de confirmación al usuario
+                    MessageBox.Show("Los datos se guardaron correctamente",
+                        "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Restablece el estado de guardado a 0 (sin acción)
+                    EstadoGuarda = 0;
+
+                    // Habilita los botones principales nuevamente
                     this.EstadoBotonesPrincipales(true);
-                    txtDescripPr.Text = "";
-                    Mantenimiento.SelectedIndex = 0;
-                    this.IdProductos = 0;
+
+                    // Oculta los botones de procesos
+                    this.EstadoBotonesProcesos(false);
+
+                    // Limpia el campo de texto
+                    txtDescripCa.Text = "";
+
+                    // Bloquea el campo de texto
+                    txtDescripCa.ReadOnly = true;
+
+                    // Regresa a la pestaña de Listado (índice 0)
+                    TbpPrincipal.SelectedIndex = 0;
+
+                    // Reinicia el ID de categoría a 0
+                    this.IdCategoria = 0;
                 }
                 else
                 {
-                    MessageBox.Show(Rpta, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Si hubo un error, muestra el mensaje de error recibido
+                    MessageBox.Show($"Error al guardar los datos: {Rpta}",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        private void BtnSalir_Click(object sender, EventArgs e)
+        #endregion
+
+        private void btnRegresar_Click(object sender, EventArgs e)
+        {
+            this.EstadoBotonesPrincipales(true);
+            this.EstadoBotonesProcesos(false);
+            TbpPrincipal.SelectedIndex = 0;
+            this.IdCategoria = 0;
+        }
+
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            EstadoGuarda = 2;
+            this.EstadoBotonesPrincipales(false);
+            this.EstadoBotonesProcesos(true);
+            this.SeleccionaItem();
+            txtDescripCa.ReadOnly = false;
+            TbpPrincipal.SelectedIndex = 1;
+            txtDescripCa.Focus();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void BtnRegresar_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
-            this.EstadoBotonesProcesos(false);
-            this.EstadoBotonesPrincipales(true);
-            Mantenimiento.SelectedIndex = 0;
-            this.IdProductos = 0;
+            this.ListadoCA(TxtBuscar.Text.Trim());
         }
 
-        private void BtnActualizar_Click(object sender, EventArgs e)
+        private void btnEliminar_Click(object sender, EventArgs e)
         {
-            EstadoGuarda = 2;
-            this.EstadoBotonesProcesos(true);
-            this.EstadoBotonesPrincipales(false);
-            this.SeleccionaItem();
-            txtDescripPr.ReadOnly = false;
-            Mantenimiento.SelectedIndex = 1;
-            txtDescripPr.Focus();
-        }
-
-        private void BtnEliminar_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.Cells["IdProductos"].Value)))
+            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
+                  Cells["IdCategoria"].Value)))//valida si el campo id categoria de la fila seleccionada esta vacia 
             {
-                MessageBox.Show("No se pudo seleccionar el registro", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                MessageBox.Show("No se pudo seleccionar el registro ", "Aviso del sistema",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
             else
             {
-                DialogResult Opcion;
-                Opcion = MessageBox.Show("Â¿Realmente desea eliminar el registro seleccionado?", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (Opcion == DialogResult.No)
+                DialogResult opcion;
+                opcion = MessageBox.Show("¿Esta seguro de eliminar el registro seleccionado?",
+                    "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (opcion == DialogResult.Yes)
                 {
-                    return;
-                }
-                else
-                {
-                    this.IdProductos = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdProductos"].Value);
+
                     string Rpta = "";
-                    Rpta = BL_Producto.EliminarMA(this.IdProductos);
+
+
+                    this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.
+                    Cells["IdCategoria"].Value);
+
+                    Rpta = BL_Categoria.EliminarCA(this.IdCategoria);
+
                     if (Rpta.Equals("OK"))
                     {
-                        this.ListadoMA("%");
-                        MessageBox.Show("Los datos se eliminaron correctamente", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.IdProductos = 0;
+                        ListadoCA("%");
+                        this.IdCategoria = 0;
+                        MessageBox.Show("Resgistro eliminado", "Aviso del sistema",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else
                     {
-                        MessageBox.Show(Rpta, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(Rpta, "Aviso del sistema",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Information);// muestra el error del sistema (codigo)
                     }
+
                 }
+
             }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
-

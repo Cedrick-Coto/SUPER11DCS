@@ -47,11 +47,11 @@ namespace SUPER11D
         #endregion
 
         #region Listado de Marcas
-        private void ListadoCA(string cTexto)
+        private void ListadoMA(string cTexto)
         {
             try
             {
-                DgvPrincipal.DataSource = BL_Marca.ListadoCA(cTexto);
+                DgvPrincipal.DataSource = BL_Marca.ListadoMA(cTexto);
                 this.FormatoCA();
             }
             catch (Exception ex)
@@ -82,7 +82,7 @@ namespace SUPER11D
         #region Cargar el combo de marcas
         private void FrmMarcas_Load(object sender, EventArgs e)
         {
-            this.ListadoCA("%");
+            this.ListadoMA("%");
 
         }
         #endregion
@@ -118,10 +118,10 @@ namespace SUPER11D
                 string Rpta = "";
                 ma.IdMarca = this.IdMarca;
                 ma.cDescripcion_ma = this.txtDescripPr.Text.Trim();
-                Rpta = BL_Marca.GuardarCA(EstadoGuarda, ma);
+                Rpta = BL_Marca.GuardarMA(EstadoGuarda, ma);
                 if (Rpta.Equals("OK"))
                 {
-                    this.ListadoCA("%");
+                    this.ListadoMA("%");
                     MessageBox.Show("Los datos se guardaron correctamente", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.EstadoBotonesProcesos(false);
                     this.EstadoBotonesPrincipales(true);
@@ -178,10 +178,10 @@ namespace SUPER11D
                 {
                     this.IdMarca = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdMarca"].Value);
                     string Rpta = "";
-                    Rpta = BL_Marca.EliminarCA(this.IdMarca);
+                    Rpta = BL_Marca.EliminarMA(this.IdMarca);
                     if (Rpta.Equals("OK"))
                     {
-                        this.ListadoCA("%");
+                        this.ListadoMA("%");
                         MessageBox.Show("Los datos se eliminaron correctamente", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.IdMarca = 0;
                     }
