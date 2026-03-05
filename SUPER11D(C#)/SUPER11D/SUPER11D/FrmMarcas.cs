@@ -5,15 +5,15 @@ using System.Drawing.Text;
 
 namespace SUPER11D
 {
-    public partial class FrmMarca : Form
+    public partial class FrmMarcas : Form
     {
-        public FrmMarca()
+        public FrmMarcas()
         {
             InitializeComponent();
         }
         #region Mis variables globales
         int EstadoGuarda = 0;
-        int IdMarcas = 0;
+        int IdMarca = 0;
 
         #endregion
 
@@ -22,37 +22,37 @@ namespace SUPER11D
 
         #region Mis Metodos
         //Crea un formato, disposicion de como se van a ver los datos, que se van a  imprimir en el data view
-        private void FormatoMA()
+        private void FormatoCA()
         {
             DgvPrincipal.Columns[0].Width = 100;
-            DgvPrincipal.Columns[0].HeaderText = "ID ";
+            DgvPrincipal.Columns[0].HeaderText = "ID Marca";
             DgvPrincipal.Columns[1].Width = 100;
-            DgvPrincipal.Columns[1].HeaderText = "Marcas";
+            DgvPrincipal.Columns[1].HeaderText = "Marca";
         }
         private void SeleccionaItem()
         {
             //Validar que el campo no este vacio
-            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.Cells["IdMarcas"].Value)))
+            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.Cells["IdMarca"].Value)))
             {
                 MessageBox.Show("No se pudo seleccionar el registro", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
                 //Asignar los valores a las variables globales
-                this.IdMarcas = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdMarcas"].Value);
-                txtDescripMA.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionCa"].Value);
+                this.IdMarca = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdMarca"].Value);
+                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionCa"].Value);
             }
 
         }
         #endregion
 
         #region Listado de Marcas
-        private void ListadoMA(string cTexto)
+        private void ListadoCA(string cTexto)
         {
             try
             {
-                DgvPrincipal.DataSource = BL_Marca.ListadoMA(cTexto);
-                this.FormatoMA();
+                DgvPrincipal.DataSource = BL_Marca.ListadoCA(cTexto);
+                this.FormatoCA();
             }
             catch (Exception ex)
             {
@@ -79,10 +79,10 @@ namespace SUPER11D
         }
         #endregion
 
-        #region Cargar el combo de Marcass
-        private void Marcas_Load(object sender, EventArgs e)
+        #region Cargar el combo de marcas
+        private void FrmMarcas_Load(object sender, EventArgs e)
         {
-            this.ListadoMA("%");
+            this.ListadoCA("%");
 
         }
         #endregion
@@ -93,41 +93,41 @@ namespace SUPER11D
             this.EstadoBotonesProcesos(true);
             this.EstadoBotonesPrincipales(false);
             //Limpiar los controles
-            txtDescripMA.Text = "";
-            txtDescripMA.ReadOnly = false;
+            txtDescripPr.Text = "";
+            txtDescripPr.ReadOnly = false;
             //Poner el cursor en el control de texto
             Mantenimiento.SelectedIndex = 1;
-            txtDescripMA.Focus();
+            txtDescripPr.Focus();
         }
 
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
-            if (txtDescripMA.Text.Trim() == "")
+            if (txtDescripPr.Text.Trim() == "")
             {
-                MessageBox.Show("Debe ingresar una descripcion para la Marcas", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Debe ingresar una descripcion para la marca", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 EstadoGuarda = 0;
                 this.EstadoBotonesPrincipales(true);
                 this.EstadoBotonesProcesos(false);
-                txtDescripMA.Text = "";
+                txtDescripPr.Text = "";
                 Mantenimiento.SelectedIndex = 0;
-                this.IdMarcas = 0;
+                this.IdMarca = 0;
             }
             else
             {
                 ET_Marca ca = new ET_Marca();
                 string Rpta = "";
-                ca.IdMarcas = this.IdMarcas;
-                ca.cDescripcion_ca = this.txtDescripMA.Text.Trim();
-                Rpta = BL_Marca.GuardarMA(EstadoGuarda, ca);
+                ca.IdMarca = this.IdMarca;
+                ca.cDescripcion_ma = this.txtDescripPr.Text.Trim();
+                Rpta = BL_Marca.GuardarCA(EstadoGuarda, ca);
                 if (Rpta.Equals("OK"))
                 {
-                    this.ListadoMA("%");
+                    this.ListadoCA("%");
                     MessageBox.Show("Los datos se guardaron correctamente", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.EstadoBotonesProcesos(false);
                     this.EstadoBotonesPrincipales(true);
-                    txtDescripMA.Text = "";
+                    txtDescripPr.Text = "";
                     Mantenimiento.SelectedIndex = 0;
-                    this.IdMarcas = 0;
+                    this.IdMarca = 0;
                 }
                 else
                 {
@@ -146,7 +146,7 @@ namespace SUPER11D
             this.EstadoBotonesProcesos(false);
             this.EstadoBotonesPrincipales(true);
             Mantenimiento.SelectedIndex = 0;
-            this.IdMarcas = 0;
+            this.IdMarca = 0;
         }
 
         private void BtnActualizar_Click(object sender, EventArgs e)
@@ -155,14 +155,14 @@ namespace SUPER11D
             this.EstadoBotonesProcesos(true);
             this.EstadoBotonesPrincipales(false);
             this.SeleccionaItem();
-            txtDescripMA.ReadOnly = false;
+            txtDescripPr.ReadOnly = false;
             Mantenimiento.SelectedIndex = 1;
-            txtDescripMA.Focus();
+            txtDescripPr.Focus();
         }
 
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.Cells["IdMarcas"].Value)))
+            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.Cells["IdMarca"].Value)))
             {
                 MessageBox.Show("No se pudo seleccionar el registro", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -176,14 +176,14 @@ namespace SUPER11D
                 }
                 else
                 {
-                    this.IdMarcas = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdMarcas"].Value);
+                    this.IdMarca = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdMarca"].Value);
                     string Rpta = "";
-                    Rpta = BL_Marca.EliminarMA(this.IdMarcas);
+                    Rpta = BL_Marca.EliminarCA(this.IdMarca);
                     if (Rpta.Equals("OK"))
                     {
-                        this.ListadoMA("%");
+                        this.ListadoCA("%");
                         MessageBox.Show("Los datos se eliminaron correctamente", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.IdMarcas = 0;
+                        this.IdMarca = 0;
                     }
                     else
                     {

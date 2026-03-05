@@ -1,6 +1,6 @@
 namespace SUPER11D
 {
-    partial class FrmMarca
+    partial class FrmMarcas
     {
         /// <summary>
         ///  Required designer variable.
@@ -39,7 +39,7 @@ namespace SUPER11D
             BtnGuardar = new Button();
             BtnCancelar = new Button();
             button6 = new Button();
-            txtDescripMA = new TextBox();
+            txtDescripPr = new TextBox();
             Marcas = new Label();
             BtnActualizar = new Button();
             BtnNuevo = new Button();
@@ -118,7 +118,7 @@ namespace SUPER11D
             tabPage2.Controls.Add(BtnGuardar);
             tabPage2.Controls.Add(BtnCancelar);
             tabPage2.Controls.Add(button6);
-            tabPage2.Controls.Add(txtDescripMA);
+            tabPage2.Controls.Add(txtDescripPr);
             tabPage2.Controls.Add(Marcas);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
@@ -178,14 +178,14 @@ namespace SUPER11D
             button6.Text = "Buscar";
             button6.UseVisualStyleBackColor = false;
             // 
-            // txtDescripMA
+            // txtDescripPr
             // 
-            txtDescripMA.Location = new Point(114, 6);
-            txtDescripMA.Name = "txtDescripMA";
-            txtDescripMA.Size = new Size(187, 23);
-            txtDescripMA.TabIndex = 5;
+            txtDescripPr.Location = new Point(114, 6);
+            txtDescripPr.Name = "txtDescripPr";
+            txtDescripPr.Size = new Size(187, 23);
+            txtDescripPr.TabIndex = 5;
             // 
-            //Marcas 
+            // Marcas
             // 
             Marcas.AutoSize = true;
             Marcas.Location = new Point(32, 6);
@@ -258,7 +258,7 @@ namespace SUPER11D
             BtnEliminar.UseVisualStyleBackColor = false;
             BtnEliminar.Click += BtnEliminar_Click;
             // 
-            // Marca
+            // FrmMarcas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -269,9 +269,9 @@ namespace SUPER11D
             Controls.Add(BtnActualizar);
             Controls.Add(BtnNuevo);
             Controls.Add(Mantenimiento);
-            Name = "Marca";
+            Name = "FrmMarcas";
             Text = "MARCAS";
-            Load += Marcas_Load;
+            Load += FrmMarcas_Load;
             Mantenimiento.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
@@ -293,7 +293,7 @@ namespace SUPER11D
         private Label label1;
         private DataGridView DgvPrincipal;
         private Button button6;
-        private TextBox txtDescripMA;
+        private TextBox txtDescripPr;
         private Label Marcas;
         private Button BtnReporte;
         private Button BtnSalir;
