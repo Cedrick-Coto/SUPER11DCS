@@ -1,4 +1,4 @@
-// Referencia a la capa de Lógica de Negocio
+// Referencia a la capa de Lï¿½gica de Negocio
 using BL;
 // Referencia a la capa de Entidades
 using ET;
@@ -6,8 +6,8 @@ using ET;
 namespace SUPER11D
 {
     /// <summary>
-    /// Formulario para gestionar las categorías del sistema.
-    /// Permite listar, crear, actualizar y eliminar categorías.
+    /// Formulario para gestionar las categorï¿½as del sistema.
+    /// Permite listar, crear, actualizar y eliminar categorï¿½as.
     /// </summary>
     public partial class FrmProductos : Form
     {
@@ -23,66 +23,215 @@ namespace SUPER11D
         #region Mis variables globales
 
         // Variable que controla el estado de guardado:
-        // 0 = Sin acción
-        // 1 = Insertar nueva categoría
-        // 2 = Actualizar categoría existente
+        // 0 = Sin acciï¿½n
+        // 1 = Insertar nueva categorï¿½a
+        // 2 = Actualizar categorï¿½a existente
         int EstadoGuarda = 0;
 
-        // Almacena el ID de la categoría seleccionada para edición
-        // 0 = Nueva categoría
-        // >0 = Categoría existente
+        // Almacena el ID de la categorï¿½a seleccionada para ediciï¿½n
+        // 0 = Nueva categorï¿½a
+        // >0 = Categorï¿½a existente
+        int IdProducto = 0;
+        int IdMarca = 0;
         int IdCategoria = 0;
+        int IdUniMed = 0;
 
         #endregion
 
-        #region Mis Métodos
+        #region Mis Metodos
 
         /// <summary>
         /// Configura el formato de las columnas del DataGridView.
-        /// Define el ancho y los encabezados de las columnas que se mostrarán.
+        /// Define el ancho y los encabezados de las columnas que se mostrarï¿½n.
         /// </summary>
-        private void FormatoCA()
+        private void FormatoPR()
         {
-            // Verifica que existan al menos 2 columnas antes de formatear
-            if (DgvPrincipal.Columns.Count >= 2)
-            {
-                // Columna 0: ID de la categoría
-                DgvPrincipal.Columns[0].Width = 100;
-                DgvPrincipal.Columns[0].HeaderText = "ID Categoria";
-
-                // Columna 1: Descripción de la categoría
-                DgvPrincipal.Columns[1].Width = 100;
-                DgvPrincipal.Columns[1].HeaderText = "Categoria";
-            }
+            DgvPrincipal.Columns[0].Width = 80;
+            DgvPrincipal.Columns[0].HeaderText = "ID PRODUCTO";
+            DgvPrincipal.Columns[1].Width = 240;
+            DgvPrincipal.Columns[1].HeaderText = "Producto";
+            DgvPrincipal.Columns[2].Width = 150;
+            DgvPrincipal.Columns[2].HeaderText = "Marca";
+            DgvPrincipal.Columns[3].Width = 80;
+            DgvPrincipal.Columns[3].HeaderText = "Uni. Med";
+            DgvPrincipal.Columns[4].Width = 100;
+            DgvPrincipal.Columns[4].HeaderText = "Categoria";
+            DgvPrincipal.Columns[5].Width = 80;
+            DgvPrincipal.Columns[5].HeaderText = "Stock Min";
+            DgvPrincipal.Columns[6].Width = 80;
+            DgvPrincipal.Columns[6].HeaderText = "Stock MAX";
+            DgvPrincipal.Columns[7].Visible = false;
+            DgvPrincipal.Columns[8].Visible = false;
+            DgvPrincipal.Columns[9].Visible = false;
+            DgvPrincipal.Columns[10].Visible = false;
         }
 
-        /// Carga y muestra el listado de categorías en el DataGridView.
-        /// Ejecuta una consulta a la base de datos a través de las capas BL y DAL.
-        /// <param name="ctexto">Texto de búsqueda para filtrar categorías. 
-        /// Usar "%" para mostrar todas las categorías.</param>
-        private void ListadoCA(string ctexto)
+        private void FormatomaPR()
+        {
+            DgvMarcas.Columns[0].Width = 215;
+            DgvMarcas.Columns[0].HeaderText = "Marca";
+            DgvMarcas.Columns[1].Visible = false;
+        }
+        private void FormatocaPR()
+        {
+            DgvCategorias.Columns[0].Width = 215;
+            DgvCategorias.Columns[0].HeaderText = "Categoria";
+            DgvCategorias.Columns[1].Visible = false;
+        }
+
+        private void FormatoStockActualPR()
+        {
+            DgvBodega.Columns[0].Width = 95;
+            DgvBodega.Columns[0].HeaderText = "Bodega";
+            DgvBodega.Columns[0].Width = 65;
+            DgvBodega.Columns[0].HeaderText = "Stock Actual";
+            DgvBodega.Columns[0].Width = 65;
+            DgvBodega.Columns[0].HeaderText = "Costo Unidad";
+
+        }
+        private void FormatoumPR()
+        {
+            DgvMedidas.Columns[0].Width = 215;
+            DgvMedidas.Columns[0].HeaderText = "Marca";
+            DgvMedidas.Columns[1].Visible = false;
+        }
+
+        private void ListadoPR(string ctexto)
         {
             try
             {
-                // Llama a la capa de negocio para obtener los datos
-                // y los asigna como origen de datos del DataGridView
-                DgvPrincipal.DataSource = BL_Categoria.ListadoCA(ctexto);
+                try
+                {
+                    // Llama a la capa de negocio para obtener los datos
+                    // y los asigna como origen de datos del DataGridView
+                    DgvPrincipal.DataSource = BL_Productos.ListadoPR(ctexto);
 
-                // Aplica el formato a las columnas del DataGridView
-                this.FormatoCA();
+                    // Aplica el formato a las columnas del DataGridView
+                    this.FormatoPR();
+                }
+                catch (Exception ex)
+                {
+                    // Captura cualquier error y lo muestra al usuario
+                    // con detalles para facilitar la depuraciï¿½n
+                    MessageBox.Show($"Error al cargar datos: {ex.Message}\n\nStackTrace: {ex.StackTrace}",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                // Captura cualquier error y lo muestra al usuario
-                // con detalles para facilitar la depuración
-                MessageBox.Show($"Error al cargar datos: {ex.Message}\n\nStackTrace: {ex.StackTrace}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        private void ListadoUMPR(string ctexto)
+        {
+            try
+            {
+                try
+                {
+                    // Llama a la capa de negocio para obtener los datos
+                    // y los asigna como origen de datos del DataGridView
+                    DgvPrincipal.DataSource = BL_Productos.ListadoUMPR(ctexto);
+
+                    // Aplica el formato a las columnas del DataGridView
+                    this.FormatoPR();
+                }
+                catch (Exception ex)
+                {
+                    // Captura cualquier error y lo muestra al usuario
+                    // con detalles para facilitar la depuraciï¿½n
+                    MessageBox.Show($"Error al cargar datos: {ex.Message}\n\nStackTrace: {ex.StackTrace}",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        private void ListadoCAPR(string ctexto)
+        {
+            try
+            {
+                try
+                {
+                    // Llama a la capa de negocio para obtener los datos
+                    // y los asigna como origen de datos del DataGridView
+                    DgvPrincipal.DataSource = BL_Productos.ListadoCAPR(ctexto);
+
+                    // Aplica el formato a las columnas del DataGridView
+                    this.FormatoPR();
+                }
+                catch (Exception ex)
+                {
+                    // Captura cualquier error y lo muestra al usuario
+                    // con detalles para facilitar la depuraciï¿½n
+                    MessageBox.Show($"Error al cargar datos: {ex.Message}\n\nStackTrace: {ex.StackTrace}",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        private void ListadoMAPR(string ctexto)
+        {
+            try
+            {
+                try
+                {
+                    // Llama a la capa de negocio para obtener los datos
+                    // y los asigna como origen de datos del DataGridView
+                    DgvPrincipal.DataSource = BL_Productos.ListadoMAPR(ctexto);
+
+                    // Aplica el formato a las columnas del DataGridView
+                    this.FormatoPR();
+                }
+                catch (Exception ex)
+                {
+                    // Captura cualquier error y lo muestra al usuario
+                    // con detalles para facilitar la depuraciï¿½n
+                    MessageBox.Show($"Error al cargar datos: {ex.Message}\n\nStackTrace: {ex.StackTrace}",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        private void ListadoStockActualPR(int cIdProducto)
+        {
+            try
+            {
+                try
+                {
+                    // Llama a la capa de negocio para obtener los datos
+                    // y los asigna como origen de datos del DataGridView
+                    DgvBodega.DataSource = BL_Productos.Ver_Stock_Actual_Prod_xBodegas(cIdProducto);
+
+                    // Aplica el formato a las columnas del DataGridView
+                    this.FormatoPR();
+                }
+                catch (Exception ex)
+                {
+                    // Captura cualquier error y lo muestra al usuario
+                    // con detalles para facilitar la depuraciï¿½n
+                    MessageBox.Show($"Error al cargar datos: {ex.Message}\n\nStackTrace: {ex.StackTrace}",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
 
-
-        /// Controla el estado (habilitado/deshabilitado) de los botones principales del formulario.
-        /// <param name="LEstado">true = habilita los botones, false = deshabilita los botones</param>
         private void EstadoBotonesPrincipales(bool LEstado)
         {
             // Habilita o deshabilita los botones de acciones principales
@@ -122,20 +271,23 @@ namespace SUPER11D
             {
                 this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.
                     Cells["IdProducto"].Value);
-                txtDescripCa.Text = Convert.ToString(DgvPrincipal.CurrentRow.
+                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.
                 Cells["cDescripcion_ca"].Value);
             }
         }
         #region Eventos del Formulario
 
 
-        /// Evento que se ejecuta cuando el formulario se carga por primera vez.
-        /// Inicializa el estado del formulario y carga los datos iniciales.
 
-        private void FrmCategorias_Load(object sender, EventArgs e)
+
+        private void FrmProductos_Load(object sender, EventArgs e)
         {
-            // Carga todas las categorías (% = comodín para traer todos los registros)
-            this.ListadoCA("%");
+            // Carga todas las categorï¿½as (% = comodï¿½n para traer todos los registros)
+            this.ListadoPR("%");
+            this.ListadoCAPR("%");
+            this.ListadoMAPR("%");
+            this.ListadoUMPR("%");
+            this.ListadoStockActualPR(0);
 
             // Habilita los botones principales (Nuevo, Actualizar, Eliminar, etc.)
             this.EstadoBotonesPrincipales(true);
@@ -144,77 +296,60 @@ namespace SUPER11D
             this.EstadoBotonesProcesos(false);
 
             // Bloquea el campo de texto para evitar ediciones no autorizadas
-            txtDescripCa.ReadOnly = true;
+            txtDescripPr.ReadOnly = true;
         }
 
 
-        /// Evento del botón Nuevo.
-        /// Prepara el formulario para ingresar una nueva categoría.
+
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            // Establece el estado a 1 (Insertar nueva categoría)
             EstadoGuarda = 1;
-
-            // Deshabilita los botones principales para evitar conflictos
             this.EstadoBotonesPrincipales(false);
-
-            // Muestra los botones de proceso (Guardar, Cancelar, Regresar)
             this.EstadoBotonesProcesos(true);
-
-            // Limpia el campo de texto
-            txtDescripCa.Text = "";
-
-            // Habilita el campo de texto para permitir la escritura
-            txtDescripCa.ReadOnly = false;
-
-            // Cambia a la pestaña de Mantenimiento (índice 1)
+            txtDescripPr.ReadOnly = false;
             TbpPrincipal.SelectedIndex = 1;
-
-            // Coloca el cursor en el campo de texto para que el usuario pueda escribir inmediatamente
-            txtDescripCa.Focus();
+            txtDescripPr.Focus();
         }
 
-        /// Evento del botón Guardar.
-        /// Valida y guarda la categoría (nueva o actualizada) en la base de datos.
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            // Valida que el campo de descripción no esté vacío
-            if (txtDescripCa.Text == String.Empty)
+            // Valida que el campo de descripciï¿½n no estï¿½ vacï¿½o
+            if (txtDescripPr.Text == String.Empty)
             {
-                // Muestra un mensaje de advertencia si no se ingresó descripción
-                MessageBox.Show("Debe ingresar una descripción para el producto",
-                    "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                // Muestra un mensaje de advertencia si no se ingresï¿½ descripciï¿½n
+                MessageBox.Show("Debe ingresar una descripciï¿½n para el producto",
+                    "Validaciï¿½n", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
-                // Crea una instancia de la entidad Categoría
-                ET_Categoria eT_Categoria = new ET_Categoria();
+                // Crea una instancia de la entidad Categorï¿½a
+                ET_Categoria Et_Categoria = new ET_Categoria();
 
                 // Variable para almacenar la respuesta del proceso de guardado
                 string Rpta = "";
 
-                // Asigna el ID de la categoría (0 para nueva, >0 para actualizar)
-                eT_Categoria.IdCategoria = IdCategoria;
+                // Asigna el ID de la categorï¿½a (0 para nueva, >0 para actualizar)
+                Et_Categoria.IdCategoria = IdCategoria;
 
-                // Asigna la descripción ingresada, eliminando espacios al inicio y final
-                eT_Categoria.cDescripcion_ca = txtDescripCa.Text.Trim();
+                // Asigna la descripciï¿½n ingresada, eliminando espacios al inicio y final
+                Et_Categoria.cDescripcion_ca = txtDescripPr.Text.Trim();
 
-                // Llama al método de la capa de negocio para guardar la categoría
-                // EstadoGuarda indica si es inserción (1) o actualización (2)
-                Rpta = BL_Categoria.GuardarCA(EstadoGuarda, eT_Categoria);
+                // Llama al mï¿½todo de la capa de negocio para guardar la categorï¿½a
+                // EstadoGuarda indica si es inserciï¿½n (1) o actualizaciï¿½n (2)
+                Rpta = BL_Categoria.GuardarCA(EstadoGuarda, Et_Categoria);
 
                 // Verifica si el guardado fue exitoso
                 if (Rpta == "OK")
                 {
-                    // Recarga el listado de categorías para mostrar los cambios
-                    this.ListadoCA("%");
+                    // Recarga el listado de categorï¿½as para mostrar los cambios
+                    this.ListadoPR("%");
 
-                    // Muestra mensaje de confirmación al usuario
+                    // Muestra mensaje de confirmaciï¿½n al usuario
                     MessageBox.Show("Los datos se guardaron correctamente",
-                        "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        "Informaciï¿½n", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // Restablece el estado de guardado a 0 (sin acción)
+                    // Restablece el estado de guardado a 0 (sin acciï¿½n)
                     EstadoGuarda = 0;
 
                     // Habilita los botones principales nuevamente
@@ -224,15 +359,15 @@ namespace SUPER11D
                     this.EstadoBotonesProcesos(false);
 
                     // Limpia el campo de texto
-                    txtDescripCa.Text = "";
+                    txtDescripPr.Text = "";
 
                     // Bloquea el campo de texto
-                    txtDescripCa.ReadOnly = true;
+                    txtDescripPr.ReadOnly = true;
 
-                    // Regresa a la pestaña de Listado (índice 0)
+                    // Regresa a la pestaï¿½a de Listado (ï¿½ndice 0)
                     TbpPrincipal.SelectedIndex = 0;
 
-                    // Reinicia el ID de categoría a 0
+                    // Reinicia el ID de categorï¿½a a 0
                     this.IdCategoria = 0;
                 }
                 else
@@ -260,9 +395,9 @@ namespace SUPER11D
             this.EstadoBotonesPrincipales(false);
             this.EstadoBotonesProcesos(true);
             this.SeleccionaItem();
-            txtDescripCa.ReadOnly = false;
+            txtDescripPr.ReadOnly = false;
             TbpPrincipal.SelectedIndex = 1;
-            txtDescripCa.Focus();
+            txtDescripPr.Focus();
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -272,7 +407,7 @@ namespace SUPER11D
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.ListadoCA(TxtBuscar.Text.Trim());
+            this.ListadoPR(TxtBuscar.Text.Trim());
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -288,7 +423,7 @@ namespace SUPER11D
             else
             {
                 DialogResult opcion;
-                opcion = MessageBox.Show("¿Esta seguro de eliminar el registro seleccionado?",
+                opcion = MessageBox.Show("ï¿½Esta seguro de eliminar el registro seleccionado?",
                     "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (opcion == DialogResult.Yes)
@@ -304,7 +439,7 @@ namespace SUPER11D
 
                     if (Rpta.Equals("OK"))
                     {
-                        ListadoCA("%");
+                        ListadoPR("%");
                         this.IdCategoria = 0;
                         MessageBox.Show("Resgistro eliminado", "Aviso del sistema",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -328,6 +463,12 @@ namespace SUPER11D
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void BtnLupa1_Click(object sender, EventArgs e)
+        {
+            this.Pnl_Marca.Location = BtnLupa1.Location;
+            this.Pnl_Marca.Visible = true;
         }
     }
 }
