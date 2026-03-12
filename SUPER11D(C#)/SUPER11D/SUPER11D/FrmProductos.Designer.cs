@@ -278,6 +278,7 @@
             BtnLupa3.TabIndex = 18;
             BtnLupa3.Text = ":::";
             BtnLupa3.UseVisualStyleBackColor = false;
+            BtnLupa3.Click += BtnLupa3_Click;
             // 
             // textMedida
             // 
@@ -305,6 +306,7 @@
             BtnLupa2.TabIndex = 15;
             BtnLupa2.Text = ":::";
             BtnLupa2.UseVisualStyleBackColor = false;
+            BtnLupa2.Click += BtnLupa2_Click;
             // 
             // textMarca
             // 
@@ -569,6 +571,7 @@
             DgvCategorias.Name = "DgvCategorias";
             DgvCategorias.Size = new System.Drawing.Size(362, 167);
             DgvCategorias.TabIndex = 1;
+            DgvCategorias.MouseDoubleClick += DgvCategorias_MouseDoubleClick;
             // 
             // Pnl_Marca
             // 
@@ -585,6 +588,7 @@
             Pnl_Marca.TabStop = false;
             Pnl_Marca.Text = "Estado de Marcas";
             Pnl_Marca.Visible = false;
+
             // 
             // btnRetorna1
             // 
@@ -631,6 +635,7 @@
             DgvMarcas.Name = "DgvMarcas";
             DgvMarcas.Size = new System.Drawing.Size(362, 167);
             DgvMarcas.TabIndex = 1;
+            DgvMarcas.MouseDoubleClick += DgvMarcas_MouseDoubleClick;
             // 
             // FrmProductos
             // 
@@ -695,7 +700,7 @@
         private Button BtnLupa3;
         private TextBox textMedida;
         private Label label4;
-        private Button BtnLupa2;
+        private System.Windows.Forms.Button BtnLupa2;
         private GroupBox Pnl_Stock_Bodega;
         private TextBox Txt_pu_venta;
         private TextBox TxtMaximo;
@@ -715,7 +720,7 @@
         private Button btnBuscar3;
         private TextBox textBox4;
         private Label label9;
-        private DataGridView DgvCategorias;
+        private System.Windows.Forms.DataGridView DgvCategorias;
         private GroupBox Pnl_Marca;
         private Button btnRetorna1;
         private Button btnBuscar1;

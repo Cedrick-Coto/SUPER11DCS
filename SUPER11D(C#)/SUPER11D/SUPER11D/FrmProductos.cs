@@ -40,10 +40,7 @@ namespace SUPER11D
 
         #region Mis Metodos
 
-        /// <summary>
-        /// Configura el formato de las columnas del DataGridView.
-        /// Define el ancho y los encabezados de las columnas que se mostrar�n.
-        /// </summary>
+
         private void FormatoPR()
         {
             DgvPrincipal.Columns[0].Width = 80;
@@ -243,9 +240,6 @@ namespace SUPER11D
         }
 
 
-        /// Controla la visibilidad de los botones de procesos (Guardar, Cancelar, Regresar).
-
-        /// name="LEstado">true = muestra los botones, false = oculta los botones
         private void EstadoBotonesProcesos(bool LEstado)
         {
             // Muestra u oculta los botones de procesos de mantenimiento
@@ -255,8 +249,30 @@ namespace SUPER11D
         }
 
         #endregion
-
         private void SeleccionaItem()
+        {
+            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
+                    Cells["IdProducto"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia 
+            {
+
+                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            }
+            else
+            {
+                this.IdProducto = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdProducto"].Value);
+                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionPr"].Value);
+                this.IdMarca = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdMarca"].Value);
+                txtMarcas.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionMa"].Value);
+                this.IdUniMed = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdUniMed"].Value);
+                Txt_pu_venta.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionUn"].Value);
+                this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdCategoria"].Value);
+                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionCa"].Value);
+            }
+        }
+        private void SeleccionaItemPR()
         {
             if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
                 Cells["IdProductos"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia 
@@ -272,7 +288,83 @@ namespace SUPER11D
                 this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.
                     Cells["IdProducto"].Value);
                 txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.
-                Cells["cDescripcion_ca"].Value);
+                Cells["cDescripcion_pr"].Value);
+            }
+        }
+        private void SeleccionaItemMAPR()
+        {
+            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
+                    Cells["IdMarca"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia 
+            {
+
+                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            }
+            else
+            {
+                this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.
+                    Cells["IdMarca"].Value);
+                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.
+                    Cells["cDescripcion_ma_pr"].Value);
+            }
+        }
+        private void SeleccionaItemCAPR()
+        {
+            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
+                    Cells["IdCategoria"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia 
+            {
+
+                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            }
+            else
+            {
+                this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.
+                    Cells["IdCategoria"].Value);
+                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.
+                    Cells["cDescripcion_ca_pr"].Value);
+            }
+        }
+        private void SeleccionaItemUMPR()
+        {
+            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
+                    Cells["IdUniMed"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia 
+            {
+
+                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            }
+            else
+            {
+                this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.
+                    Cells["IdUniMed"].Value);
+                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.
+                    Cells["cDescripcion_um_pr"].Value);
+            }
+        }
+        private void SeleccionaItemBOPR()
+        {
+            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
+                    Cells["IdBodega"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia 
+            {
+
+                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            }
+            else
+            {
+                this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.
+                    Cells["IdBodega"].Value);
+                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.
+                    Cells["cIdProducto"].Value);
             }
         }
         #region Eventos del Formulario
@@ -308,7 +400,10 @@ namespace SUPER11D
             this.EstadoBotonesProcesos(true);
             txtDescripPr.ReadOnly = false;
             TbpPrincipal.SelectedIndex = 1;
+            TxtMinimo.Text = "0";
+            TxtMaximo.Text = "0";
             txtDescripPr.Focus();
+            Pnl_Stock_Bodega.Visible = false;
         }
 
 
@@ -394,7 +489,7 @@ namespace SUPER11D
             EstadoGuarda = 2;
             this.EstadoBotonesPrincipales(false);
             this.EstadoBotonesProcesos(true);
-            this.SeleccionaItem();
+            this.SeleccionaItemPR();
             txtDescripPr.ReadOnly = false;
             TbpPrincipal.SelectedIndex = 1;
             txtDescripPr.Focus();
@@ -469,6 +564,38 @@ namespace SUPER11D
         {
             this.Pnl_Marca.Location = BtnLupa1.Location;
             this.Pnl_Marca.Visible = true;
+        }
+
+        private void BtnLupa2_Click(object sender, EventArgs e)
+        {
+            this.Pnl_Unid_med.Location = BtnLupa2.Location;
+            this.Pnl_Unid_med.Visible = true;
+        }
+
+        private void BtnLupa3_Click(object sender, EventArgs e)
+        {
+            this.Pnl_Categorias.Location = BtnLupa3.Location;
+            this.Pnl_Categorias.Visible = true;
+        }
+
+        private void DgvCategorias_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.SeleccionaItemCAPR();
+            Pnl_Categorias.Visible = false;
+        }
+
+        private void DgvMarcas_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.SeleccionaItemCAPR();
+            Pnl_Marca.Visible = false;
+        }
+        private void DgvPrincipal_DoubleClick(object sender, EventArgs e)
+        {
+            this.SeleccionaItem();
+            this.EstadoBotonesProcesos(false);
+            TbpPrincipal.SelectedIndex = 1;
+            this.ListadoStockActualPR(this.IdProducto);
+            this.Pnl_Stock_Bodega.Visible = true;
         }
     }
 }
