@@ -65,22 +65,29 @@ namespace SUPER11D
 
         private void FormatomaPR()
         {
-            DgvMarcas.Columns[0].Width = 215;
-            DgvMarcas.Columns[0].HeaderText = "Marca";
-            DgvMarcas.Columns[1].Visible = false;
+            // Solo aplica formato si el Grid ya cargó las columnas desde la base de datos
+            if (DgvMarcas.Columns.Count > 0)
+            {
+                // Usamos nombres de columna en lugar de índices [0] para ser más seguros
+                if (DgvMarcas.Columns.Contains("DescripcionMa"))
+                {
+                    DgvMarcas.Columns["DescripcionMa"].Width = 215;
+                    DgvMarcas.Columns["DescripcionMa"].HeaderText = "Marca";
+                }
+
+                if (DgvMarcas.Columns.Contains("IdMarca"))
+                {
+                    DgvMarcas.Columns["IdMarca"].Visible = false;
+                }
+            }
         }
         private void FormatocaPR()
         {
-            // Usamos DgvCategorias porque parece ser el que usas en los paneles flotantes
-            if (DgvCategorias.Columns.Count > 0)
+            if (DgvCategorias.Columns.Count >= 2)
             {
                 DgvCategorias.Columns[0].Width = 215;
                 DgvCategorias.Columns[0].HeaderText = "Categoria";
-
-                if (DgvCategorias.Columns.Count > 1)
-                {
-                    DgvCategorias.Columns[1].Visible = false;
-                }
+                DgvCategorias.Columns[1].Visible = false;
             }
         }
 
@@ -231,7 +238,7 @@ namespace SUPER11D
                 this.IdUniMed = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdUniMed"].Value);
                 Txt_pu_venta.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionUn"].Value);
                 this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdCategoria"].Value);
-                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionCa"].Value);
+                TxtCategorias.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionCa"].Value);
             }
         }
         private void SeleccionaItemPR()
@@ -247,68 +254,39 @@ namespace SUPER11D
             }
             else
             {
-                this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.
+                this.IdProducto = Convert.ToInt32(DgvPrincipal.CurrentRow.
                     Cells["IdProducto"].Value);
                 txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.
-                Cells["cDescripcion_pr"].Value);
+                Cells["DescripcionPr"].Value);
             }
         }
         private void SeleccionaItemMAPR()
         {
-            // 1. Validar que haya una fila seleccionada
-            if (DgvPrincipal.CurrentRow == null) return;
+            if (DgvMarcas.CurrentRow == null) return;
 
-            // 2. Validar que la celda no sea nula antes de convertir a String
-            var cellValue = DgvPrincipal.CurrentRow.Cells["IdMarca"].Value;
+            this.IdMarca = Convert.ToInt32(DgvMarcas.CurrentRow.Cells["IdMarca"].Value);
+            txtMarcas.Text = Convert.ToString(DgvMarcas.CurrentRow.Cells["DescripcionMa"].Value);
 
-            if (cellValue == null || string.IsNullOrEmpty(cellValue.ToString()))
-            {
-                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                this.IdMarca = Convert.ToInt32(cellValue);
-                // OJO: Verifica que el nombre de la columna en SQL sea exactamente "cDescripcion_ma_pr"
-                txtMarcas.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["cDescripcion_ma_pr"].Value);
-            }
+            Pnl_Marca.Visible = false;
         }
         private void SeleccionaItemCAPR()
         {
-            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
-                    Cells["IdCategoria"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia 
+            // Corregido: Leer de DgvCategorias, NO de DgvPrincipal
+            if (DgvCategorias.CurrentRow != null)
             {
-
-                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
-            }
-            else
-            {
-                this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.
-                    Cells["IdCategoria"].Value);
-                TxtCategorias.Text = Convert.ToString(DgvPrincipal.CurrentRow.
-                    Cells["cDescripcion_ca_pr"].Value);
+                this.IdCategoria = Convert.ToInt32(DgvCategorias.CurrentRow.Cells[1].Value);
+                TxtCategorias.Text = Convert.ToString(DgvCategorias.CurrentRow.Cells[0].Value);
+                Pnl_Categorias.Visible = false;
             }
         }
         private void SeleccionaItemUMPR()
         {
-            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
-                    Cells["IdUniMed"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia 
+            // Corregido: Leer de DgvMedidas
+            if (DgvMedidas.CurrentRow != null)
             {
-
-                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
-            }
-            else
-            {
-                this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.
-                    Cells["IdUniMed"].Value);
-                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.
-                    Cells["cDescripcion_um_pr"].Value);
+                this.IdUniMed = Convert.ToInt32(DgvMedidas.CurrentRow.Cells[1].Value);
+                TxtMedidas.Text = Convert.ToString(DgvMedidas.CurrentRow.Cells[0].Value);
+                Pnl_Unid_med.Visible = false;
             }
         }
         private void SeleccionaItemBOPR()
@@ -372,7 +350,7 @@ namespace SUPER11D
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (txtDescripPr.Text == String.Empty || txtMarcas.Text == String.Empty || TxtMedidas.Text == String.Empty || TxtCategorias.Text == String.Empty || Txt_pu_venta.Text == String.Empty || TxtMaximo.Text==String.Empty || TxtMinimo.Text == String.Empty )
+            if (txtDescripPr.Text == String.Empty || txtMarcas.Text == String.Empty || TxtMedidas.Text == String.Empty || TxtCategorias.Text == String.Empty || Txt_pu_venta.Text == String.Empty || TxtMaximo.Text == String.Empty || TxtMinimo.Text == String.Empty)
             {
                 MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -388,7 +366,7 @@ namespace SUPER11D
                 eT_Productos.IdCategoria = this.IdCategoria;
                 eT_Productos.StockMin = Convert.ToDecimal(TxtMinimo.Text);
                 eT_Productos.StockMax = Convert.ToDecimal(TxtMaximo.Text);
-                eT_Productos.Pu_venta= Convert.ToDecimal(Txt_pu_venta.Text);
+                eT_Productos.Pu_venta = Convert.ToDecimal(Txt_pu_venta.Text);
                 Rpta = BL_Productos.GuardarPR(EstadoGuarda, eT_Productos);
                 if (Rpta == "OK")
                 {
@@ -540,6 +518,21 @@ namespace SUPER11D
             TbpPrincipal.SelectedIndex = 1;
             this.ListadoStockActualPR(this.IdProducto);
             this.Pnl_Stock_Bodega.Visible = true;
+        }
+        private void DgvMedidas_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.SeleccionaItemUMPR();
+            this.Pnl_Unid_med.Visible = false;
+        }
+
+        private void btnRetorna1_Click(object sender, EventArgs e)
+        {
+            Pnl_Marca.Visible = false;
+        }
+
+        private void btnBuscar1_Click(object sender, EventArgs e)
+        {
+            ListadoMAPR(txtMarcas.Text.Trim());
         }
     }
 }
