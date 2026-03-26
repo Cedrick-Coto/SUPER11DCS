@@ -38,6 +38,46 @@ namespace SUPER11D
 
         #endregion
 
+        #region Helpers de lectura seguros
+
+        private int GetIntFromCell(DataGridViewRow row, string columnName, int defaultValue = 0)
+        {
+            try
+            {
+                if (row == null) return defaultValue;
+                if (row.DataGridView == null) return defaultValue;
+                if (!row.DataGridView.Columns.Contains(columnName)) return defaultValue;
+                var val = row.Cells[columnName]?.Value;
+                if (val == null || val == DBNull.Value) return defaultValue;
+                if (val is int) return (int)val;
+                if (int.TryParse(val.ToString(), out int r)) return r;
+                if (long.TryParse(val.ToString(), out long rl) && rl <= int.MaxValue) return (int)rl;
+                return defaultValue;
+            }
+            catch
+            {
+                return defaultValue;
+            }
+        }
+
+        private string GetStringFromCell(DataGridViewRow row, string columnName)
+        {
+            try
+            {
+                if (row == null) return string.Empty;
+                if (row.DataGridView == null) return string.Empty;
+                if (!row.DataGridView.Columns.Contains(columnName)) return string.Empty;
+                var val = row.Cells[columnName]?.Value;
+                return (val == null || val == DBNull.Value) ? string.Empty : val.ToString();
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        #endregion
+
         #region Mis Metodos
 
 
@@ -180,8 +220,8 @@ namespace SUPER11D
                     // y los asigna como origen de datos del DataGridView
                     DgvBodega.DataSource = BL_Productos.Ver_Stock_Actual_Prod_xBodegas(cIdProducto);
 
-                    // Aplica el formato a las columnas del DataGridView
-                    this.FormatoPR();
+                    // Aplica el formato al grid de bodegas
+                    this.FormatoStockActualPR();
                 }
                 catch (Exception ex)
                 {
@@ -220,52 +260,76 @@ namespace SUPER11D
         #endregion
         private void SeleccionaItem()
         {
-            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
-                    Cells["IdProducto"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia 
+            var row = DgvPrincipal.CurrentRow;
+            if (row == null)
             {
-
                 MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
+                return;
             }
-            else
+
+            if (string.IsNullOrEmpty(GetStringFromCell(row, "IdProducto")))
             {
-                this.IdProducto = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdProducto"].Value);
-                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionPr"].Value);
-                this.IdMarca = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdMarca"].Value);
-                txtMarcas.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionMa"].Value);
-                this.IdUniMed = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdUniMed"].Value);
-                Txt_pu_venta.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionUn"].Value);
-                this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdCategoria"].Value);
-                TxtCategorias.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionCa"].Value);
+                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+
+            this.IdProducto = GetIntFromCell(row, "IdProducto");
+            txtDescripPr.Text = GetStringFromCell(row, "DescripcionPr");
+            this.IdMarca = GetIntFromCell(row, "IdMarca");
+            txtMarcas.Text = GetStringFromCell(row, "DescripcionMa");
+            this.IdUniMed = GetIntFromCell(row, "IdUniMed");
+            Txt_pu_venta.Text = GetStringFromCell(row, "DescripcionUn");
+            this.IdCategoria = GetIntFromCell(row, "IdCategoria");
+            TxtCategorias.Text = GetStringFromCell(row, "DescripcionCa");
         }
         private void SeleccionaItemPR()
         {
-            if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
-                Cells["IdProductos"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia 
+            var row = DgvPrincipal.CurrentRow;
+            if (row == null)
             {
-
                 MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
+                return;
             }
-            else
+
+            if (string.IsNullOrEmpty(GetStringFromCell(row, "IdProducto")))
             {
-                this.IdProducto = Convert.ToInt32(DgvPrincipal.CurrentRow.
-                    Cells["IdProducto"].Value);
-                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.
-                Cells["DescripcionPr"].Value);
+                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+
+            this.IdProducto = GetIntFromCell(row, "IdProducto");
+            txtDescripPr.Text = GetStringFromCell(row, "DescripcionPr");
         }
         private void SeleccionaItemMAPR()
         {
             if (DgvMarcas.CurrentRow == null) return;
 
-            this.IdMarca = Convert.ToInt32(DgvMarcas.CurrentRow.Cells["IdMarca"].Value);
-            txtMarcas.Text = Convert.ToString(DgvMarcas.CurrentRow.Cells["DescripcionMa"].Value);
+            var row = DgvMarcas.CurrentRow;
+            object idVal = null;
+            object descVal = null;
+
+            if (DgvMarcas.Columns.Contains("IdMarca"))
+                idVal = row.Cells["IdMarca"].Value;
+            else if (row.Cells.Count > 1)
+                idVal = row.Cells[1].Value;
+            else if (row.Cells.Count > 0)
+                idVal = row.Cells[0].Value;
+
+            if (DgvMarcas.Columns.Contains("DescripcionMa"))
+                descVal = row.Cells["DescripcionMa"].Value;
+            else if (row.Cells.Count > 0)
+                descVal = row.Cells[0].Value;
+
+            int parsedId = 0;
+            if (idVal != null && idVal != DBNull.Value)
+                int.TryParse(idVal.ToString(), out parsedId);
+
+            this.IdMarca = parsedId;
+            txtMarcas.Text = descVal == null || descVal == DBNull.Value ? string.Empty : descVal.ToString();
 
             Pnl_Marca.Visible = false;
         }
