@@ -409,68 +409,23 @@ namespace SUPER11D
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            // Valida que el campo de descripci�n no est� vac�o
-            if (txtDescripPr.Text == String.Empty)
+            if (txtDescripPr.Text == String.Empty || txtMarcas.Text == String.Empty || TxtMedidas.Text == String.Empty || TxtCategorias.Text == String.Empty || Txt_pu_venta.Text == String.Empty || TxtMaximo.Text==String.Empty || TxtMinimo.Text == String.Empty )
             {
-                // Muestra un mensaje de advertencia si no se ingres� descripci�n
-                MessageBox.Show("Debe ingresar una descripci�n para el producto",
-                    "Validaci�n", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                // Crea una instancia de la entidad Categor�a
-                ET_Categoria Et_Categoria = new ET_Categoria();
-
-                // Variable para almacenar la respuesta del proceso de guardado
+                ET_Productos eT_Productos = new ET_Productos();
                 string Rpta = "";
-
-                // Asigna el ID de la categor�a (0 para nueva, >0 para actualizar)
-                Et_Categoria.IdCategoria = IdCategoria;
-
-                // Asigna la descripci�n ingresada, eliminando espacios al inicio y final
-                Et_Categoria.cDescripcion_ca = txtDescripPr.Text.Trim();
-
-                // Llama al m�todo de la capa de negocio para guardar la categor�a
-                // EstadoGuarda indica si es inserci�n (1) o actualizaci�n (2)
-                Rpta = BL_Categoria.GuardarCA(EstadoGuarda, Et_Categoria);
-
-                // Verifica si el guardado fue exitoso
-                if (Rpta == "OK")
-                {
-                    // Recarga el listado de categor�as para mostrar los cambios
-                    this.ListadoPR("%");
-
-                    // Muestra mensaje de confirmaci�n al usuario
-                    MessageBox.Show("Los datos se guardaron correctamente",
-                        "Informaci�n", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Restablece el estado de guardado a 0 (sin acci�n)
-                    EstadoGuarda = 0;
-
-                    // Habilita los botones principales nuevamente
-                    this.EstadoBotonesPrincipales(true);
-
-                    // Oculta los botones de procesos
-                    this.EstadoBotonesProcesos(false);
-
-                    // Limpia el campo de texto
-                    txtDescripPr.Text = "";
-
-                    // Bloquea el campo de texto
-                    txtDescripPr.ReadOnly = true;
-
-                    // Regresa a la pesta�a de Listado (�ndice 0)
-                    TbpPrincipal.SelectedIndex = 0;
-
-                    // Reinicia el ID de categor�a a 0
-                    this.IdCategoria = 0;
-                }
-                else
-                {
-                    // Si hubo un error, muestra el mensaje de error recibido
-                    MessageBox.Show($"Error al guardar los datos: {Rpta}",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                eT_Productos.IdProducto = this.IdProducto;
+                eT_Productos.DescripcionPr = txtDescripPr.Text.Trim();
+                eT_Productos.IdMarca = this.IdMarca;
+                eT_Productos.IdUnidMed = this.IdUniMed;
+                eT_Productos.IdCategoria = this.IdCategoria;
+                eT_Productos.StockMin = Convert.ToDecimal(TxtMinimo.Text);
+                eT_Productos.StockMax = Convert.ToDecimal(TxtMaximo.Text);
+                eT_Productos.Pu_venta= Convert.ToDecimal(Txt_pu_venta.Text);
             }
         }
 

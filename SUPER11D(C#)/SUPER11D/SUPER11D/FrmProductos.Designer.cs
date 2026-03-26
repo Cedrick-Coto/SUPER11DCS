@@ -43,10 +43,10 @@
             label6 = new System.Windows.Forms.Label();
             Pnl_Stock_Bodega = new System.Windows.Forms.GroupBox();
             DgvBodega = new System.Windows.Forms.DataGridView();
-            textCategorias = new System.Windows.Forms.TextBox();
+            TxtCategorias = new System.Windows.Forms.TextBox();
             label5 = new System.Windows.Forms.Label();
             BtnLupa3 = new System.Windows.Forms.Button();
-            textMedida = new System.Windows.Forms.TextBox();
+            TxtMedidas = new System.Windows.Forms.TextBox();
             label4 = new System.Windows.Forms.Label();
             BtnLupa2 = new System.Windows.Forms.Button();
             textMarca = new System.Windows.Forms.TextBox();
@@ -163,10 +163,10 @@
             tabPage2.Controls.Add(label7);
             tabPage2.Controls.Add(label6);
             tabPage2.Controls.Add(Pnl_Stock_Bodega);
-            tabPage2.Controls.Add(textCategorias);
+            tabPage2.Controls.Add(TxtCategorias);
             tabPage2.Controls.Add(label5);
             tabPage2.Controls.Add(BtnLupa3);
-            tabPage2.Controls.Add(textMedida);
+            tabPage2.Controls.Add(TxtMedidas);
             tabPage2.Controls.Add(label4);
             tabPage2.Controls.Add(BtnLupa2);
             tabPage2.Controls.Add(textMarca);
@@ -252,12 +252,12 @@
             DgvBodega.Size = new System.Drawing.Size(362, 167);
             DgvBodega.TabIndex = 0;
             // 
-            // textCategorias
+            // TxtCategorias
             // 
-            textCategorias.Location = new System.Drawing.Point(101, 107);
-            textCategorias.Name = "textCategorias";
-            textCategorias.Size = new System.Drawing.Size(224, 23);
-            textCategorias.TabIndex = 20;
+            TxtCategorias.Location = new System.Drawing.Point(101, 107);
+            TxtCategorias.Name = "TxtCategorias";
+            TxtCategorias.Size = new System.Drawing.Size(224, 23);
+            TxtCategorias.TabIndex = 20;
             // 
             // label5
             // 
@@ -280,12 +280,12 @@
             BtnLupa3.UseVisualStyleBackColor = false;
             BtnLupa3.Click += BtnLupa3_Click;
             // 
-            // textMedida
+            // TxtMedidas
             // 
-            textMedida.Location = new System.Drawing.Point(101, 78);
-            textMedida.Name = "textMedida";
-            textMedida.Size = new System.Drawing.Size(224, 23);
-            textMedida.TabIndex = 17;
+            TxtMedidas.Location = new System.Drawing.Point(101, 78);
+            TxtMedidas.Name = "TxtMedidas";
+            TxtMedidas.Size = new System.Drawing.Size(224, 23);
+            TxtMedidas.TabIndex = 17;
             // 
             // label4
             // 
@@ -695,10 +695,10 @@
         private Button btnRegresar;
         private TextBox textMarca;
         private Label label3;
-        private TextBox textCategorias;
+        private TextBox TxtCategorias;
         private Label label5;
         private Button BtnLupa3;
-        private TextBox textMedida;
+        private TextBox TxtMedidas;
         private Label label4;
         private System.Windows.Forms.Button BtnLupa2;
         private GroupBox Pnl_Stock_Bodega;
