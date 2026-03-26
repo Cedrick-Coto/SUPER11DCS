@@ -426,6 +426,27 @@ namespace SUPER11D
                 eT_Productos.StockMin = Convert.ToDecimal(TxtMinimo.Text);
                 eT_Productos.StockMax = Convert.ToDecimal(TxtMaximo.Text);
                 eT_Productos.Pu_venta= Convert.ToDecimal(Txt_pu_venta.Text);
+                Rpta = BL_Productos.GuardarPR(EstadoGuarda, eT_Productos);
+                if (Rpta == "OK")
+                {
+                    this.ListadoPR("%");
+                    MessageBox.Show("Los datos se han registrado", "Aviso del sistema",
+                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    EstadoGuarda = 0;
+                    this.EstadoBotonesPrincipales(true);
+                    this.EstadoBotonesProcesos(false);
+                    txtDescripPr.Text = "";
+                    TxtMaximo.Text = "0";
+                    TxtMinimo.Text = "0";
+                    Txt_pu_venta.Text = "0";
+                    txtDescripPr.ReadOnly = true;
+                    TxtMaximo.ReadOnly = true;
+                    TxtMinimo.ReadOnly = true;
+                    Txt_pu_venta.ReadOnly = true;
+                    TbpPrincipal.SelectedIndex = 0;
+                    this.IdMarca = 0;
+                    this.Pnl_Stock_Bodega.Visible = false;
+                }
             }
         }
 
