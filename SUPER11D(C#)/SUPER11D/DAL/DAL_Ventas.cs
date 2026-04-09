@@ -39,8 +39,39 @@ namespace DAL
                 if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
             }
         }
+        public DataTable Listado_Detalle_sp(int nCodigo_sp)
+        {
+            SqlDataReader Resultado; //Guarda en Bruto
+            DataTable Tabla = new DataTable(); //Tabla de Datos
+            SqlConnection SqlCon = new SqlConnection(); //Instancia a la Conexion a la BD
+            try
+            {
+                //Establecer la conexion con la BD
+                SqlCon = Conexion.GetInstancia().CrearConexion;
+                SqlCommand comando = new SqlCommand("USP_Listado_Detalle_sp", SqlCon);
+                //Tipo de comando a ejecutar (Procedimiento Almacenado)
+                comando.CommandType = CommandType.StoredProcedure;
+                //Parametro de busqueda para el procedimiento almacenado
+                comando.Parameters.Add("@nCodigo_sp", SqlDbType.Int, 250).Value = (object)nCodigo_sp;
+                //Abrir la conexion
+                SqlCon.Open();
+                Resultado = comando.ExecuteReader();
+                // Cargar el resultado del comando en la tabla de datos
+                Tabla.Load(Resultado);
+                return Tabla;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                //Si la conexion esta abierta, cerrarla
+                if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
+            }
+        }
 
-        public DataTable ListadoMAPR(string ctexto)
+        public DataTable Listado_cl_sp(string ctexto)
         {
             SqlDataReader Resultado; //Guarda en Bruto
             DataTable Tabla = new DataTable(); //Tabla de Datos
@@ -49,11 +80,9 @@ namespace DAL
             {
                 //Establecer la conexion con la BD
                 SqlCon = Conexion.GetInstancia().CrearConexion;
-                SqlCommand comando = new SqlCommand("USP_Listado_ma_pr", SqlCon);
+                SqlCommand comando = new SqlCommand("USP_Listado_cl_sp", SqlCon);
                 //Tipo de comando a ejecutar (Procedimiento Almacenado)
                 comando.CommandType = CommandType.StoredProcedure;
-                //Parametro de busqueda para el procedimiento almacenado
-                comando.Parameters.Add("@ctexto", SqlDbType.VarChar, 100).Value = (object)ctexto ?? DBNull.Value;
                 //Abrir la conexion
                 SqlCon.Open();
                 Resultado = comando.ExecuteReader();
@@ -71,7 +100,8 @@ namespace DAL
                 if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
             }
         }
-        public DataTable ListadoUMPR(string ctexto)
+        
+        public DataTable Listado_pr_sp(string ctexto)
         {
             SqlDataReader Resultado; //Guarda en Bruto
             DataTable Tabla = new DataTable(); //Tabla de Datos
@@ -80,38 +110,7 @@ namespace DAL
             {
                 //Establecer la conexion con la BD
                 SqlCon = Conexion.GetInstancia().CrearConexion;
-                SqlCommand comando = new SqlCommand("USP_Listado_um_pr", SqlCon);
-                //Tipo de comando a ejecutar (Procedimiento Almacenado)
-                comando.CommandType = CommandType.StoredProcedure;
-                //Parametro de busqueda para el procedimiento almacenado
-                comando.Parameters.Add("@ctexto", SqlDbType.VarChar, 250).Value = (object)ctexto ?? DBNull.Value;
-                //Abrir la conexion
-                SqlCon.Open();
-                Resultado = comando.ExecuteReader();
-                // Cargar el resultado del comando en la tabla de datos
-                Tabla.Load(Resultado);
-                return Tabla;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                //Si la conexion esta abierta, cerrarla
-                if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
-            }
-        }
-        public DataTable ListadoCAPR(string ctexto)
-        {
-            SqlDataReader Resultado; //Guarda en Bruto
-            DataTable Tabla = new DataTable(); //Tabla de Datos
-            SqlConnection SqlCon = new SqlConnection(); //Instancia a la Conexion a la BD
-            try
-            {
-                //Establecer la conexion con la BD
-                SqlCon = Conexion.GetInstancia().CrearConexion;
-                SqlCommand comando = new SqlCommand("USP_Listado_ca_pr", SqlCon);
+                SqlCommand comando = new SqlCommand("USP_Listado_pr_sp", SqlCon);
                 //Tipo de comando a ejecutar (Procedimiento Almacenado)
                 comando.CommandType = CommandType.StoredProcedure;
                 //Parametro de busqueda para el procedimiento almacenado
@@ -133,7 +132,7 @@ namespace DAL
                 if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
             }
         }
-        public DataTable Listado_tde(int cIdProducto)
+        public DataTable Listado_tde(string ctexto)
         {
             SqlDataReader Resultado; //Guarda en Bruto
             DataTable Tabla = new DataTable(); //Tabla de Datos
@@ -146,7 +145,7 @@ namespace DAL
                 //Tipo de comando a ejecutar (Procedimiento Almacenado)
                 comando.CommandType = CommandType.StoredProcedure;
                 //Parametro de busqueda para el procedimiento almacenado
-                comando.Parameters.Add("@nIdProducto", SqlDbType.Int).Value = cIdProducto;
+                comando.Parameters.Add("@ctexto", SqlDbType.VarChar, 250).Value = (object)ctexto ?? DBNull.Value;
                 //Abrir la conexion
                 SqlCon.Open();
                 Resultado = comando.ExecuteReader();
@@ -164,7 +163,7 @@ namespace DAL
                 if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
             }
         }
-        public string Guardar_sp(Et_Ventas oSp, DataTable dTabla)
+        public string Guardar_sp(ET_Ventas oSp, DataTable dTabla)
         {
             SqlConnection sqlConnection = new SqlConnection();
             string Rpta = "";

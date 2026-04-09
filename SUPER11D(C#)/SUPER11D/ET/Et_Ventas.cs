@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ET
 {
-    public class Et_Ventas
+    public class ET_Ventas
     {
         private int _Codigo_sp;
         private int _Codigo_tde;
