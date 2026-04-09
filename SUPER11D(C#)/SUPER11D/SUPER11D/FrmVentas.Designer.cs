@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Pnl_Marca = new GroupBox();
-            btnRetorna1 = new Button();
-            btnBuscar1 = new Button();
-            txtMarcas = new TextBox();
+            Pnl_Cliente = new GroupBox();
+            Btn_Retornar2 = new Button();
+            Btn_Buscar2 = new Button();
+            Txt_Buscar2 = new TextBox();
             label11 = new Label();
-            DgvMarcas = new DataGridView();
+            DgvCliente = new DataGridView();
             btnSalir = new Button();
             btnReporte = new Button();
             btnEliminar = new Button();
@@ -46,77 +46,99 @@
             label1 = new Label();
             TbpPrincipal = new TabControl();
             tabPage2 = new TabPage();
+            Txt_total_importe = new TextBox();
+            label9 = new Label();
+            Txt_iva = new TextBox();
+            label8 = new Label();
+            Txt_subtotal = new TextBox();
+            label7 = new Label();
+            label6 = new Label();
+            Txt_nroducmento_cl = new TextBox();
+            BtnLupa1 = new Button();
+            label5 = new Label();
+            Txt_observaciones_sp = new RichTextBox();
             DgvBodega = new DataGridView();
-            textMarca = new TextBox();
+            Btn_Quitar = new Button();
+            Btn_Agregar = new Button();
+            label4 = new Label();
+            Txt_nrodocumento_sp = new TextBox();
+            label2 = new Label();
+            DtpFechaVenta = new DateTimePicker();
+            Txt_descripcion_tde = new TextBox();
             label3 = new Label();
             btnRegresar = new Button();
             btnGuardar = new Button();
             btnCancelar = new Button();
-            BtnLupa1 = new Button();
-            dateTimePicker1 = new DateTimePicker();
-            textBox1 = new TextBox();
-            label2 = new Label();
-            label4 = new Label();
-            button1 = new Button();
-            button2 = new Button();
-            richTextBox1 = new RichTextBox();
-            label5 = new Label();
-            textBox2 = new TextBox();
-            button4 = new Button();
-            label6 = new Label();
-            Pnl_Marca.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)DgvMarcas).BeginInit();
+            BtnLupa2 = new Button();
+            Pnl_Listado_tde = new GroupBox();
+            this.TxtBucar1 = new TextBox();
+            label10 = new Label();
+            Dgv_tipo_tde = new DataGridView();
+            Pnl_Listado_pr = new GroupBox();
+            Btn_Retorna3 = new Button();
+            Btn_Buscar3 = new Button();
+            Txt_Buscar3 = new TextBox();
+            label12 = new Label();
+            Dgv_Productos = new DataGridView();
+            btnBuscar1 = new Button();
+            btnRetornar1 = new Button();
+            Pnl_Cliente.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)DgvCliente).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DgvPrincipal).BeginInit();
             tabPage1.SuspendLayout();
             TbpPrincipal.SuspendLayout();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvBodega).BeginInit();
+            Pnl_Listado_tde.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)Dgv_tipo_tde).BeginInit();
+            Pnl_Listado_pr.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)Dgv_Productos).BeginInit();
             SuspendLayout();
             // 
-            // Pnl_Marca
+            // Pnl_Cliente
             // 
-            Pnl_Marca.Controls.Add(btnRetorna1);
-            Pnl_Marca.Controls.Add(btnBuscar1);
-            Pnl_Marca.Controls.Add(txtMarcas);
-            Pnl_Marca.Controls.Add(label11);
-            Pnl_Marca.Controls.Add(DgvMarcas);
-            Pnl_Marca.ForeColor = SystemColors.ControlText;
-            Pnl_Marca.Location = new Point(667, 455);
-            Pnl_Marca.Name = "Pnl_Marca";
-            Pnl_Marca.Size = new Size(503, 244);
-            Pnl_Marca.TabIndex = 40;
-            Pnl_Marca.TabStop = false;
-            Pnl_Marca.Text = "Estado de Marcas";
-            Pnl_Marca.Visible = false;
+            Pnl_Cliente.Controls.Add(Btn_Retornar2);
+            Pnl_Cliente.Controls.Add(Btn_Buscar2);
+            Pnl_Cliente.Controls.Add(Txt_Buscar2);
+            Pnl_Cliente.Controls.Add(label11);
+            Pnl_Cliente.Controls.Add(DgvCliente);
+            Pnl_Cliente.ForeColor = SystemColors.ControlText;
+            Pnl_Cliente.Location = new Point(49, 479);
+            Pnl_Cliente.Name = "Pnl_Cliente";
+            Pnl_Cliente.Size = new Size(491, 244);
+            Pnl_Cliente.TabIndex = 40;
+            Pnl_Cliente.TabStop = false;
+            Pnl_Cliente.Text = "Listado de clientes";
+            Pnl_Cliente.Visible = false;
             // 
-            // btnRetorna1
+            // Btn_Retornar2
             // 
-            btnRetorna1.BackColor = Color.DodgerBlue;
-            btnRetorna1.ForeColor = SystemColors.ButtonFace;
-            btnRetorna1.Location = new Point(387, 15);
-            btnRetorna1.Name = "btnRetorna1";
-            btnRetorna1.Size = new Size(50, 28);
-            btnRetorna1.TabIndex = 29;
-            btnRetorna1.Text = ":::";
-            btnRetorna1.UseVisualStyleBackColor = false;
+            Btn_Retornar2.BackColor = Color.DodgerBlue;
+            Btn_Retornar2.ForeColor = SystemColors.ButtonFace;
+            Btn_Retornar2.Location = new Point(387, 15);
+            Btn_Retornar2.Name = "Btn_Retornar2";
+            Btn_Retornar2.Size = new Size(50, 28);
+            Btn_Retornar2.TabIndex = 29;
+            Btn_Retornar2.Text = ":::";
+            Btn_Retornar2.UseVisualStyleBackColor = false;
             // 
-            // btnBuscar1
+            // Btn_Buscar2
             // 
-            btnBuscar1.BackColor = Color.DodgerBlue;
-            btnBuscar1.ForeColor = SystemColors.ButtonFace;
-            btnBuscar1.Location = new Point(331, 15);
-            btnBuscar1.Name = "btnBuscar1";
-            btnBuscar1.Size = new Size(50, 28);
-            btnBuscar1.TabIndex = 28;
-            btnBuscar1.Text = ":::";
-            btnBuscar1.UseVisualStyleBackColor = false;
+            Btn_Buscar2.BackColor = Color.DodgerBlue;
+            Btn_Buscar2.ForeColor = SystemColors.ButtonFace;
+            Btn_Buscar2.Location = new Point(331, 15);
+            Btn_Buscar2.Name = "Btn_Buscar2";
+            Btn_Buscar2.Size = new Size(50, 28);
+            Btn_Buscar2.TabIndex = 28;
+            Btn_Buscar2.Text = ":::";
+            Btn_Buscar2.UseVisualStyleBackColor = false;
             // 
-            // txtMarcas
+            // Txt_Buscar2
             // 
-            txtMarcas.Location = new Point(80, 19);
-            txtMarcas.Name = "txtMarcas";
-            txtMarcas.Size = new Size(245, 23);
-            txtMarcas.TabIndex = 28;
+            Txt_Buscar2.Location = new Point(80, 19);
+            Txt_Buscar2.Name = "Txt_Buscar2";
+            Txt_Buscar2.Size = new Size(245, 23);
+            Txt_Buscar2.TabIndex = 28;
             // 
             // label11
             // 
@@ -127,19 +149,19 @@
             label11.TabIndex = 28;
             label11.Text = "Buscar(*)";
             // 
-            // DgvMarcas
+            // DgvCliente
             // 
-            DgvMarcas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DgvMarcas.Location = new Point(74, 62);
-            DgvMarcas.Name = "DgvMarcas";
-            DgvMarcas.Size = new Size(362, 167);
-            DgvMarcas.TabIndex = 1;
+            DgvCliente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgvCliente.Location = new Point(74, 62);
+            DgvCliente.Name = "DgvCliente";
+            DgvCliente.Size = new Size(362, 167);
+            DgvCliente.TabIndex = 1;
             // 
             // btnSalir
             // 
             btnSalir.BackColor = Color.DodgerBlue;
             btnSalir.ForeColor = SystemColors.ButtonFace;
-            btnSalir.Location = new Point(551, 477);
+            btnSalir.Location = new Point(525, 443);
             btnSalir.Name = "btnSalir";
             btnSalir.Size = new Size(77, 30);
             btnSalir.TabIndex = 39;
@@ -150,7 +172,7 @@
             // 
             btnReporte.BackColor = Color.DodgerBlue;
             btnReporte.ForeColor = SystemColors.ButtonFace;
-            btnReporte.Location = new Point(434, 477);
+            btnReporte.Location = new Point(408, 443);
             btnReporte.Name = "btnReporte";
             btnReporte.Size = new Size(77, 30);
             btnReporte.TabIndex = 38;
@@ -161,7 +183,7 @@
             // 
             btnEliminar.BackColor = Color.DodgerBlue;
             btnEliminar.ForeColor = SystemColors.ButtonFace;
-            btnEliminar.Location = new Point(312, 477);
+            btnEliminar.Location = new Point(286, 443);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(77, 30);
             btnEliminar.TabIndex = 37;
@@ -172,7 +194,7 @@
             // 
             btnActualizar.BackColor = Color.DodgerBlue;
             btnActualizar.ForeColor = SystemColors.ButtonFace;
-            btnActualizar.Location = new Point(183, 477);
+            btnActualizar.Location = new Point(157, 443);
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(77, 30);
             btnActualizar.TabIndex = 36;
@@ -183,7 +205,7 @@
             // 
             btnNuevo.BackColor = Color.DodgerBlue;
             btnNuevo.ForeColor = SystemColors.ButtonFace;
-            btnNuevo.Location = new Point(62, 477);
+            btnNuevo.Location = new Point(36, 443);
             btnNuevo.Name = "btnNuevo";
             btnNuevo.Size = new Size(77, 30);
             btnNuevo.TabIndex = 35;
@@ -225,7 +247,7 @@
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1070, 277);
+            tabPage1.Size = new Size(1111, 383);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Consultas";
             tabPage1.UseVisualStyleBackColor = true;
@@ -251,24 +273,30 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(Txt_total_importe);
+            tabPage2.Controls.Add(label9);
+            tabPage2.Controls.Add(Txt_iva);
+            tabPage2.Controls.Add(label8);
+            tabPage2.Controls.Add(Txt_subtotal);
+            tabPage2.Controls.Add(label7);
             tabPage2.Controls.Add(label6);
-            tabPage2.Controls.Add(textBox2);
-            tabPage2.Controls.Add(button4);
+            tabPage2.Controls.Add(Txt_nroducmento_cl);
+            tabPage2.Controls.Add(BtnLupa1);
             tabPage2.Controls.Add(label5);
-            tabPage2.Controls.Add(richTextBox1);
+            tabPage2.Controls.Add(Txt_observaciones_sp);
             tabPage2.Controls.Add(DgvBodega);
-            tabPage2.Controls.Add(button2);
-            tabPage2.Controls.Add(button1);
+            tabPage2.Controls.Add(Btn_Quitar);
+            tabPage2.Controls.Add(Btn_Agregar);
             tabPage2.Controls.Add(label4);
-            tabPage2.Controls.Add(textBox1);
+            tabPage2.Controls.Add(Txt_nrodocumento_sp);
             tabPage2.Controls.Add(label2);
-            tabPage2.Controls.Add(dateTimePicker1);
-            tabPage2.Controls.Add(textMarca);
+            tabPage2.Controls.Add(DtpFechaVenta);
+            tabPage2.Controls.Add(Txt_descripcion_tde);
             tabPage2.Controls.Add(label3);
             tabPage2.Controls.Add(btnRegresar);
             tabPage2.Controls.Add(btnGuardar);
             tabPage2.Controls.Add(btnCancelar);
-            tabPage2.Controls.Add(BtnLupa1);
+            tabPage2.Controls.Add(BtnLupa2);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -276,6 +304,98 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Ventas";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // Txt_total_importe
+            // 
+            Txt_total_importe.Location = new Point(896, 354);
+            Txt_total_importe.Name = "Txt_total_importe";
+            Txt_total_importe.Size = new Size(90, 23);
+            Txt_total_importe.TabIndex = 38;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(902, 336);
+            label9.Name = "label9";
+            label9.Size = new Size(49, 15);
+            label9.TabIndex = 37;
+            label9.Text = "Total (*)";
+            // 
+            // Txt_iva
+            // 
+            Txt_iva.Location = new Point(800, 354);
+            Txt_iva.Name = "Txt_iva";
+            Txt_iva.Size = new Size(90, 23);
+            Txt_iva.TabIndex = 36;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(806, 336);
+            label8.Name = "label8";
+            label8.Size = new Size(47, 15);
+            label8.TabIndex = 35;
+            label8.Text = "I.V.A (*)";
+            // 
+            // Txt_subtotal
+            // 
+            Txt_subtotal.Location = new Point(704, 354);
+            Txt_subtotal.Name = "Txt_subtotal";
+            Txt_subtotal.Size = new Size(90, 23);
+            Txt_subtotal.TabIndex = 34;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(710, 336);
+            label7.Name = "label7";
+            label7.Size = new Size(75, 15);
+            label7.TabIndex = 33;
+            label7.Text = "Sub Total. (*)";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(598, 55);
+            label6.Name = "label6";
+            label6.Size = new Size(100, 15);
+            label6.TabIndex = 32;
+            label6.Text = "Observaciones (*)";
+            // 
+            // Txt_nroducmento_cl
+            // 
+            Txt_nroducmento_cl.Location = new Point(770, 22);
+            Txt_nroducmento_cl.Name = "Txt_nroducmento_cl";
+            Txt_nroducmento_cl.Size = new Size(224, 23);
+            Txt_nroducmento_cl.TabIndex = 31;
+            // 
+            // BtnLupa1
+            // 
+            BtnLupa1.BackColor = Color.DodgerBlue;
+            BtnLupa1.ForeColor = SystemColors.ButtonFace;
+            BtnLupa1.Location = new Point(1000, 22);
+            BtnLupa1.Name = "BtnLupa1";
+            BtnLupa1.Size = new Size(50, 28);
+            BtnLupa1.TabIndex = 30;
+            BtnLupa1.Text = ":::";
+            BtnLupa1.UseVisualStyleBackColor = false;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(704, 25);
+            label5.Name = "label5";
+            label5.Size = new Size(60, 15);
+            label5.TabIndex = 29;
+            label5.Text = "Cliente (*)";
+            // 
+            // Txt_observaciones_sp
+            // 
+            Txt_observaciones_sp.Location = new Point(704, 52);
+            Txt_observaciones_sp.Name = "Txt_observaciones_sp";
+            Txt_observaciones_sp.Size = new Size(362, 96);
+            Txt_observaciones_sp.TabIndex = 28;
+            Txt_observaciones_sp.Text = "";
             // 
             // DgvBodega
             // 
@@ -285,12 +405,67 @@
             DgvBodega.Size = new Size(1066, 167);
             DgvBodega.TabIndex = 0;
             // 
-            // textMarca
+            // Btn_Quitar
             // 
-            textMarca.Location = new Point(102, 25);
-            textMarca.Name = "textMarca";
-            textMarca.Size = new Size(224, 23);
-            textMarca.TabIndex = 14;
+            Btn_Quitar.BackColor = Color.DodgerBlue;
+            Btn_Quitar.ForeColor = SystemColors.ButtonFace;
+            Btn_Quitar.Location = new Point(154, 119);
+            Btn_Quitar.Name = "Btn_Quitar";
+            Btn_Quitar.Size = new Size(95, 29);
+            Btn_Quitar.TabIndex = 27;
+            Btn_Quitar.Text = "Quitar";
+            Btn_Quitar.UseVisualStyleBackColor = false;
+            // 
+            // Btn_Agregar
+            // 
+            Btn_Agregar.BackColor = Color.DodgerBlue;
+            Btn_Agregar.ForeColor = SystemColors.ButtonFace;
+            Btn_Agregar.Location = new Point(27, 119);
+            Btn_Agregar.Name = "Btn_Agregar";
+            Btn_Agregar.Size = new Size(95, 29);
+            Btn_Agregar.TabIndex = 26;
+            Btn_Agregar.Text = "Agregar";
+            Btn_Agregar.UseVisualStyleBackColor = false;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(23, 90);
+            label4.Name = "label4";
+            label4.Size = new Size(75, 15);
+            label4.TabIndex = 25;
+            label4.Text = "Fecha Doc(*)";
+            // 
+            // Txt_nrodocumento_sp
+            // 
+            Txt_nrodocumento_sp.Location = new Point(102, 54);
+            Txt_nrodocumento_sp.Name = "Txt_nrodocumento_sp";
+            Txt_nrodocumento_sp.Size = new Size(224, 23);
+            Txt_nrodocumento_sp.TabIndex = 24;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(31, 60);
+            label2.Name = "label2";
+            label2.Size = new Size(67, 15);
+            label2.TabIndex = 23;
+            label2.Text = "Nro. Doc(*)";
+            // 
+            // DtpFechaVenta
+            // 
+            DtpFechaVenta.Format = DateTimePickerFormat.Short;
+            DtpFechaVenta.Location = new Point(104, 90);
+            DtpFechaVenta.Name = "DtpFechaVenta";
+            DtpFechaVenta.Size = new Size(200, 23);
+            DtpFechaVenta.TabIndex = 22;
+            // 
+            // Txt_descripcion_tde
+            // 
+            Txt_descripcion_tde.Location = new Point(102, 25);
+            Txt_descripcion_tde.Name = "Txt_descripcion_tde";
+            Txt_descripcion_tde.Size = new Size(224, 23);
+            Txt_descripcion_tde.TabIndex = 14;
             // 
             // label3
             // 
@@ -334,122 +509,149 @@
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
             // 
-            // BtnLupa1
+            // BtnLupa2
             // 
-            BtnLupa1.BackColor = Color.DodgerBlue;
-            BtnLupa1.ForeColor = SystemColors.ButtonFace;
-            BtnLupa1.Location = new Point(332, 25);
-            BtnLupa1.Name = "BtnLupa1";
-            BtnLupa1.Size = new Size(50, 28);
-            BtnLupa1.TabIndex = 10;
-            BtnLupa1.Text = ":::";
-            BtnLupa1.UseVisualStyleBackColor = false;
+            BtnLupa2.BackColor = Color.DodgerBlue;
+            BtnLupa2.ForeColor = SystemColors.ButtonFace;
+            BtnLupa2.Location = new Point(332, 25);
+            BtnLupa2.Name = "BtnLupa2";
+            BtnLupa2.Size = new Size(50, 28);
+            BtnLupa2.TabIndex = 10;
+            BtnLupa2.Text = ":::";
+            BtnLupa2.UseVisualStyleBackColor = false;
             // 
-            // dateTimePicker1
+            // Pnl_Listado_tde
             // 
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(104, 90);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(200, 23);
-            dateTimePicker1.TabIndex = 22;
+            Pnl_Listado_tde.Controls.Add(btnRetornar1);
+            Pnl_Listado_tde.Controls.Add(btnBuscar1);
+            Pnl_Listado_tde.Controls.Add(this.TxtBucar1);
+            Pnl_Listado_tde.Controls.Add(label10);
+            Pnl_Listado_tde.Controls.Add(Dgv_tipo_tde);
+            Pnl_Listado_tde.ForeColor = SystemColors.ControlText;
+            Pnl_Listado_tde.Location = new Point(635, 466);
+            Pnl_Listado_tde.Name = "Pnl_Listado_tde";
+            Pnl_Listado_tde.Size = new Size(491, 244);
+            Pnl_Listado_tde.TabIndex = 41;
+            Pnl_Listado_tde.TabStop = false;
+            Pnl_Listado_tde.Text = "Listado tipo de documento";
+            Pnl_Listado_tde.Visible = false;
             // 
-            // textBox1
+            // TxtBucar1
             // 
-            textBox1.Location = new Point(102, 54);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(224, 23);
-            textBox1.TabIndex = 24;
+            this.TxtBucar1.Location = new Point(80, 19);
+            this.TxtBucar1.Name = "TxtBucar1";
+            this.TxtBucar1.Size = new Size(245, 23);
+            this.TxtBucar1.TabIndex = 28;
             // 
-            // label2
+            // label10
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(31, 60);
-            label2.Name = "label2";
-            label2.Size = new Size(67, 15);
-            label2.TabIndex = 23;
-            label2.Text = "Nro. Doc(*)";
+            label10.AutoSize = true;
+            label10.Location = new Point(19, 19);
+            label10.Name = "label10";
+            label10.Size = new Size(55, 15);
+            label10.TabIndex = 28;
+            label10.Text = "Buscar(*)";
             // 
-            // label4
+            // Dgv_tipo_tde
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(23, 90);
-            label4.Name = "label4";
-            label4.Size = new Size(75, 15);
-            label4.TabIndex = 25;
-            label4.Text = "Fecha Doc(*)";
+            Dgv_tipo_tde.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            Dgv_tipo_tde.Location = new Point(74, 62);
+            Dgv_tipo_tde.Name = "Dgv_tipo_tde";
+            Dgv_tipo_tde.Size = new Size(362, 167);
+            Dgv_tipo_tde.TabIndex = 1;
             // 
-            // button1
+            // Pnl_Listado_pr
             // 
-            button1.BackColor = Color.DodgerBlue;
-            button1.ForeColor = SystemColors.ButtonFace;
-            button1.Location = new Point(27, 119);
-            button1.Name = "button1";
-            button1.Size = new Size(95, 29);
-            button1.TabIndex = 26;
-            button1.Text = "Agregar";
-            button1.UseVisualStyleBackColor = false;
+            Pnl_Listado_pr.Controls.Add(Btn_Retorna3);
+            Pnl_Listado_pr.Controls.Add(Btn_Buscar3);
+            Pnl_Listado_pr.Controls.Add(Txt_Buscar3);
+            Pnl_Listado_pr.Controls.Add(label12);
+            Pnl_Listado_pr.Controls.Add(Dgv_Productos);
+            Pnl_Listado_pr.ForeColor = SystemColors.ControlText;
+            Pnl_Listado_pr.Location = new Point(1178, 466);
+            Pnl_Listado_pr.Name = "Pnl_Listado_pr";
+            Pnl_Listado_pr.Size = new Size(943, 244);
+            Pnl_Listado_pr.TabIndex = 42;
+            Pnl_Listado_pr.TabStop = false;
+            Pnl_Listado_pr.Text = "Listado de productos";
+            Pnl_Listado_pr.Visible = false;
             // 
-            // button2
+            // Btn_Retorna3
             // 
-            button2.BackColor = Color.DodgerBlue;
-            button2.ForeColor = SystemColors.ButtonFace;
-            button2.Location = new Point(154, 119);
-            button2.Name = "button2";
-            button2.Size = new Size(95, 29);
-            button2.TabIndex = 27;
-            button2.Text = "Quitar";
-            button2.UseVisualStyleBackColor = false;
+            Btn_Retorna3.BackColor = Color.DodgerBlue;
+            Btn_Retorna3.ForeColor = SystemColors.ButtonFace;
+            Btn_Retorna3.Location = new Point(387, 15);
+            Btn_Retorna3.Name = "Btn_Retorna3";
+            Btn_Retorna3.Size = new Size(50, 28);
+            Btn_Retorna3.TabIndex = 29;
+            Btn_Retorna3.Text = ":::";
+            Btn_Retorna3.UseVisualStyleBackColor = false;
             // 
-            // richTextBox1
+            // Btn_Buscar3
             // 
-            richTextBox1.Location = new Point(704, 52);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(362, 96);
-            richTextBox1.TabIndex = 28;
-            richTextBox1.Text = "";
+            Btn_Buscar3.BackColor = Color.DodgerBlue;
+            Btn_Buscar3.ForeColor = SystemColors.ButtonFace;
+            Btn_Buscar3.Location = new Point(331, 15);
+            Btn_Buscar3.Name = "Btn_Buscar3";
+            Btn_Buscar3.Size = new Size(50, 28);
+            Btn_Buscar3.TabIndex = 28;
+            Btn_Buscar3.Text = ":::";
+            Btn_Buscar3.UseVisualStyleBackColor = false;
             // 
-            // label5
+            // Txt_Buscar3
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(704, 25);
-            label5.Name = "label5";
-            label5.Size = new Size(60, 15);
-            label5.TabIndex = 29;
-            label5.Text = "Cliente (*)";
+            Txt_Buscar3.Location = new Point(80, 19);
+            Txt_Buscar3.Name = "Txt_Buscar3";
+            Txt_Buscar3.Size = new Size(245, 23);
+            Txt_Buscar3.TabIndex = 28;
             // 
-            // textBox2
+            // label12
             // 
-            textBox2.Location = new Point(770, 22);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(224, 23);
-            textBox2.TabIndex = 31;
+            label12.AutoSize = true;
+            label12.Location = new Point(19, 19);
+            label12.Name = "label12";
+            label12.Size = new Size(55, 15);
+            label12.TabIndex = 28;
+            label12.Text = "Buscar(*)";
             // 
-            // button4
+            // Dgv_Productos
             // 
-            button4.BackColor = Color.DodgerBlue;
-            button4.ForeColor = SystemColors.ButtonFace;
-            button4.Location = new Point(1000, 22);
-            button4.Name = "button4";
-            button4.Size = new Size(50, 28);
-            button4.TabIndex = 30;
-            button4.Text = ":::";
-            button4.UseVisualStyleBackColor = false;
+            Dgv_Productos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            Dgv_Productos.Location = new Point(19, 62);
+            Dgv_Productos.Name = "Dgv_Productos";
+            Dgv_Productos.Size = new Size(901, 167);
+            Dgv_Productos.TabIndex = 1;
             // 
-            // label6
+            // btnBuscar1
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(598, 55);
-            label6.Name = "label6";
-            label6.Size = new Size(100, 15);
-            label6.TabIndex = 32;
-            label6.Text = "Observaciones (*)";
+            btnBuscar1.BackColor = Color.DodgerBlue;
+            btnBuscar1.ForeColor = SystemColors.ButtonFace;
+            btnBuscar1.Location = new Point(331, 15);
+            btnBuscar1.Name = "btnBuscar1";
+            btnBuscar1.Size = new Size(50, 28);
+            btnBuscar1.TabIndex = 28;
+            btnBuscar1.Text = ":::";
+            btnBuscar1.UseVisualStyleBackColor = false;
+            // 
+            // btnRetornar1
+            // 
+            btnRetornar1.BackColor = Color.DodgerBlue;
+            btnRetornar1.ForeColor = SystemColors.ButtonFace;
+            btnRetornar1.Location = new Point(387, 15);
+            btnRetornar1.Name = "btnRetornar1";
+            btnRetornar1.Size = new Size(50, 28);
+            btnRetornar1.TabIndex = 29;
+            btnRetornar1.Text = ":::";
+            btnRetornar1.UseVisualStyleBackColor = false;
             // 
             // FrmVentas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1227, 722);
-            Controls.Add(Pnl_Marca);
+            ClientSize = new Size(2204, 722);
+            Controls.Add(Pnl_Listado_pr);
+            Controls.Add(Pnl_Listado_tde);
+            Controls.Add(Pnl_Cliente);
             Controls.Add(btnSalir);
             Controls.Add(btnReporte);
             Controls.Add(btnEliminar);
@@ -458,9 +660,9 @@
             Controls.Add(TbpPrincipal);
             Name = "FrmVentas";
             Text = "FrmVentas";
-            Pnl_Marca.ResumeLayout(false);
-            Pnl_Marca.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)DgvMarcas).EndInit();
+            Pnl_Cliente.ResumeLayout(false);
+            Pnl_Cliente.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)DgvCliente).EndInit();
             ((System.ComponentModel.ISupportInitialize)DgvPrincipal).EndInit();
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
@@ -468,17 +670,23 @@
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)DgvBodega).EndInit();
+            Pnl_Listado_tde.ResumeLayout(false);
+            Pnl_Listado_tde.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)Dgv_tipo_tde).EndInit();
+            Pnl_Listado_pr.ResumeLayout(false);
+            Pnl_Listado_pr.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)Dgv_Productos).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private GroupBox Pnl_Marca;
-        private Button btnRetorna1;
-        private Button btnBuscar1;
-        private TextBox txtMarcas;
+        private GroupBox Pnl_Cliente;
+        private Button Btn_Retornar2;
+        private Button Btn_Buscar2;
+        private TextBox Txt_Buscar2;
         private Label label11;
-        private DataGridView DgvMarcas;
+        private DataGridView DgvCliente;
         private Button btnSalir;
         private Button btnReporte;
         private Button btnEliminar;
@@ -492,22 +700,40 @@
         private TabControl TbpPrincipal;
         private TabPage tabPage2;
         private DataGridView DgvBodega;
-        private TextBox textMarca;
+        private TextBox Txt_descripcion_tde;
         private Label label3;
         private Button btnRegresar;
         private Button btnGuardar;
         private Button btnCancelar;
-        private Button BtnLupa1;
+        private Button BtnLupa2;
         private Label label4;
-        private TextBox textBox1;
+        private TextBox Txt_nrodocumento_sp;
         private Label label2;
-        private DateTimePicker dateTimePicker1;
-        private RichTextBox richTextBox1;
-        private Button button2;
-        private Button button1;
+        private DateTimePicker DtpFechaVenta;
+        private RichTextBox Txt_observaciones_sp;
+        private Button Btn_Quitar;
+        private Button Btn_Agregar;
         private Label label6;
-        private TextBox textBox2;
-        private Button button4;
+        private TextBox Txt_nroducmento_cl;
+        private Button BtnLupa1;
         private Label label5;
+        private TextBox Txt_total_importe;
+        private Label label9;
+        private TextBox Txt_iva;
+        private Label label8;
+        private TextBox Txt_subtotal;
+        private Label label7;
+        private GroupBox Pnl_Listado_tde;
+        private TextBox textBox6;
+        private Label label10;
+        private DataGridView Dgv_tipo_tde;
+        private GroupBox Pnl_Listado_pr;
+        private Button Btn_Retorna3;
+        private Button Btn_Buscar3;
+        private TextBox Txt_Buscar3;
+        private Label label12;
+        private DataGridView Dgv_Productos;
+        private Button btnRetornar1;
+        private Button btnBuscar1;
     }
 }
