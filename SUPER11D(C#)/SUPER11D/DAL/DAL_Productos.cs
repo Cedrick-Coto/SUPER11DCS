@@ -18,7 +18,7 @@ public class DAL_Productos
                 //Tipo de comando a ejecutar (Procedimiento Almacenado)
                 comando.CommandType = CommandType.StoredProcedure;
                 //Parametro de busqueda para el procedimiento almacenado
-                comando.Parameters.Add("@ctexto", SqlDbType.VarChar).Value = ctexto;
+                comando.Parameters.Add("@ctexto", SqlDbType.VarChar, 250).Value = (object)ctexto ?? DBNull.Value;
                 //Abrir la conexion
                 SqlCon.Open();
                 Resultado = comando.ExecuteReader();
@@ -50,7 +50,7 @@ public class DAL_Productos
                 //Tipo de comando a ejecutar (Procedimiento Almacenado)
                 comando.CommandType = CommandType.StoredProcedure;
                 //Parametro de busqueda para el procedimiento almacenado
-                comando.Parameters.Add("@ctexto", SqlDbType.VarChar).Value = ctexto;
+                comando.Parameters.Add("@ctexto", SqlDbType.VarChar, 100).Value = (object)ctexto ?? DBNull.Value;
                 //Abrir la conexion
                 SqlCon.Open();
                 Resultado = comando.ExecuteReader();
@@ -81,7 +81,7 @@ public class DAL_Productos
                 //Tipo de comando a ejecutar (Procedimiento Almacenado)
                 comando.CommandType = CommandType.StoredProcedure;
                 //Parametro de busqueda para el procedimiento almacenado
-                comando.Parameters.Add("@ctexto", SqlDbType.VarChar).Value = ctexto;
+                comando.Parameters.Add("@ctexto", SqlDbType.VarChar, 250).Value = (object)ctexto ?? DBNull.Value;
                 //Abrir la conexion
                 SqlCon.Open();
                 Resultado = comando.ExecuteReader();
@@ -112,7 +112,7 @@ public class DAL_Productos
                 //Tipo de comando a ejecutar (Procedimiento Almacenado)
                 comando.CommandType = CommandType.StoredProcedure;
                 //Parametro de busqueda para el procedimiento almacenado
-                comando.Parameters.Add("@ctexto", SqlDbType.VarChar).Value = ctexto;
+                comando.Parameters.Add("@ctexto", SqlDbType.VarChar, 250).Value = (object)ctexto ?? DBNull.Value;
                 //Abrir la conexion
                 SqlCon.Open();
                 Resultado = comando.ExecuteReader();
@@ -143,7 +143,7 @@ public class DAL_Productos
                 //Tipo de comando a ejecutar (Procedimiento Almacenado)
                 comando.CommandType = CommandType.StoredProcedure;
                 //Parametro de busqueda para el procedimiento almacenado
-                comando.Parameters.Add("@nIdProducto", SqlDbType.VarChar).Value = cIdProducto;
+                comando.Parameters.Add("@nIdProducto", SqlDbType.Int).Value = cIdProducto;
                 //Abrir la conexion
                 SqlCon.Open();
                 Resultado = comando.ExecuteReader();
@@ -174,7 +174,7 @@ public class DAL_Productos
                 sqlCommand.Parameters.Add("@nOpcion", SqlDbType.Int).Value = nOpcion;
 
                 sqlCommand.Parameters.Add("@IdProducto", SqlDbType.Int).Value = pr.IdProducto;
-                sqlCommand.Parameters.Add("@cDescripcion_pr", SqlDbType.VarChar).Value = pr.DescripcionPr;
+                sqlCommand.Parameters.Add("@cDescripcion_pr", SqlDbType.VarChar, 500).Value = (object)pr.DescripcionPr ?? DBNull.Value;
                 sqlCommand.Parameters.Add("@IdMarca", SqlDbType.Int).Value = pr.IdMarca;
                 sqlCommand.Parameters.Add("@IdUnidMed", SqlDbType.Int).Value = pr.IdUnidMed;
                 sqlCommand.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = pr.IdCategoria;
@@ -183,7 +183,7 @@ public class DAL_Productos
                 sqlCommand.Parameters.Add("@Pu_venta", SqlDbType.Decimal).Value = pr.Pu_venta;
             sqlConnection.Open();
 
-                Rpta = sqlCommand.ExecuteNonQuery() == 1 ? "OK" : "No se pudo guardar el registro";
+                Rpta = sqlCommand.ExecuteNonQuery() > 0 ? "OK" : "No se pudo guardar el registro";
 
             }
             catch (Exception ex)
@@ -210,7 +210,7 @@ public class DAL_Productos
                 //Parametro para el procedimiento almacenado
                 sqlCommand.Parameters.Add("@IdProducto", SqlDbType.Int).Value = IdProducto;
                 sqlConnection.Open();
-                Rpta = sqlCommand.ExecuteNonQuery() == 1 ? "OK" : "No se pudo eliminar el registro";
+                Rpta = sqlCommand.ExecuteNonQuery() > 0 ? "OK" : "No se pudo eliminar el registro";
             }
             catch (Exception ex)
             {
