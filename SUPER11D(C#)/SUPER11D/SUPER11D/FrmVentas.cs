@@ -115,7 +115,20 @@ namespace GUI
                 Txt_observaciones_sp.Text = DgvPrincipal.CurrentRow.Cells["observacion_sp"].Value.ToString();
             }
         }
-
+        private void Crear_TablaDetalle()
+        {
+            this.TablaDetalle = new DataTable("TablaDetalle");
+            this.TablaDetalle.Columns.Add("descripcion_pr", System.Type.GetType("System.String"));
+            this.TablaDetalle.Columns.Add("descripcion_ma", System.Type.GetType("System.String"));
+            this.TablaDetalle.Columns.Add("descripcion_um", System.Type.GetType("System.String"));
+            this.TablaDetalle.Columns.Add("cantidad", System.Type.GetType("System.Decimal"));
+            this.TablaDetalle.Columns.Add("pu_venta", System.Type.GetType("System.Decimal"));
+            this.TablaDetalle.Columns.Add("total", System.Type.GetType("System.Decimal"));
+            this.TablaDetalle.Columns.Add("codigo_pr", System.Type.GetType("System.Int32"));
+            this.TablaDetalle.AcceptChanges();
+            Dgv_Detalle.DataSource = this.TablaDetalle;
+            this.Formato_detalle();
+        }
 
         #endregion
 
