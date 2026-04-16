@@ -1,3 +1,5 @@
+using GUI;
+
 namespace SUPER11D
 {
     internal static class Program
@@ -12,7 +14,7 @@ namespace SUPER11D
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FrmProductos());
+            Application.Run(new FrmVentas());
         }
     }
 }

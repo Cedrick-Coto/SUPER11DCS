@@ -455,7 +455,7 @@ namespace SUPER11D
             }
         }
 
-        #endregion
+        
 
         private void btnRegresar_Click(object sender, EventArgs e)
         {
@@ -598,5 +598,6 @@ namespace SUPER11D
         {
             ListadoMAPR(txtMarcas.Text.Trim());
         }
+        #endregion
     }
 }
