@@ -7,7 +7,7 @@ using System.Text;
 
 namespace BL
 {
-    internal class BL_Ventas
+    public class BL_Ventas
     {
         public static DataTable Listado_sp(string ctexto)
         {
