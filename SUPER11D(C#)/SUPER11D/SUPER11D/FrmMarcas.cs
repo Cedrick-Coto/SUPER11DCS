@@ -40,7 +40,7 @@ namespace SUPER11D
             {
                 //Asignar los valores a las variables globales
                 this.IdMarca = Convert.ToInt32(DgvPrincipal.CurrentRow.Cells["IdMarca"].Value);
-                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["DescripcionCa"].Value);
+                txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.Cells["cDescripcion_ma"].Value);
             }
 
         }
@@ -118,6 +118,7 @@ namespace SUPER11D
                 string Rpta = "";
                 ma.IdMarca = this.IdMarca;
                 ma.cDescripcion_ma = this.txtDescripPr.Text.Trim();
+                ma.Estado = true;
                 Rpta = BL_Marca.GuardarMA(EstadoGuarda, ma);
                 if (Rpta.Equals("OK"))
                 {

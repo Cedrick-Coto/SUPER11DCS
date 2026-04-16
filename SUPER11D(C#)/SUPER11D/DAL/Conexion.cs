@@ -34,17 +34,19 @@ namespace DAL
                     // Construimos la cadena para SQL Login (no Windows Auth)
 
                     //cadena.ConnectionString = $"Server={this._Server};" + $"Database={this._Base};" + $"User Id={this._User};" + $"Password={this._Password};" + $"TrustServerCertificate=True;"; // CRUCIAL para Linux
-                    
+
                     cadena.ConnectionString = "Server=" + this._Server + ";Database=" + this._Base + ";";
                     if (_seguridad)
                     {
-                        cadena.ConnectionString += "Integrated Security=SSPI;";
+                        // SQL Login con Usuario y Contraseña
+                        cadena.ConnectionString += "User Id=" + this._User + ";Password=" + this._Password + ";";
                     }
                     else
                     {
-                        // Aquí iría la conexión si fuese un server de BD
+                        // Autenticación de Windows
+                        cadena.ConnectionString += "Integrated Security=SSPI;";
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {

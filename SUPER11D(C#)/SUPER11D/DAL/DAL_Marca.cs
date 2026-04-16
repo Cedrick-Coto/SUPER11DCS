@@ -45,12 +45,13 @@ namespace DAL
             try
             {
                 sqlConnection = Conexion.GetInstancia().CrearConexion;
-                SqlCommand sqlCommand = new SqlCommand("USP_Guardar_ca", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand("USP_Guardar_ma", sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 //Parametros para el procedimiento almacenado
                 sqlCommand.Parameters.Add("@nOpcion", SqlDbType.Int).Value = nOpcion;
                 sqlCommand.Parameters.Add("@IdMarca", SqlDbType.Int).Value = ca.IdMarca;
                 sqlCommand.Parameters.Add("@cDescripcion_ma", SqlDbType.VarChar).Value = ca.cDescripcion_ma;
+                sqlCommand.Parameters.Add("@Estado", SqlDbType.Bit).Value = ca.Estado;
                 sqlConnection.Open();
 
                 Rpta = sqlCommand.ExecuteNonQuery() == 1 ? "OK" : "No se pudo guardar el registro";

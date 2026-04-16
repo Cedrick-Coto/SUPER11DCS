@@ -118,6 +118,7 @@ namespace SUPER11D
                 string Rpta = "";
                 ca.IdCategoria = this.IdCategoria;
                 ca.cDescripcion_ca = this.txtDescripPr.Text.Trim();
+                ca.Estado = true;
                 Rpta = BL_Categoria.GuardarCA(EstadoGuarda, ca);
                 if (Rpta.Equals("OK"))
                 {
@@ -194,4 +195,3 @@ namespace SUPER11D
         }
     }
 }
-

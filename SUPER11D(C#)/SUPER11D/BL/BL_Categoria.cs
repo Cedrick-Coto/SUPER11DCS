@@ -15,10 +15,10 @@ namespace BL
             DAL_Categoria Datos = new DAL_Categoria();
             return Datos.GuardarCA(nOption, ca);
         }
-        public static string EliminarCA(int IdMarca)
+        public static string EliminarCA(int IdCategoria)
         {
             DAL_Categoria Datos = new DAL_Categoria();
-            return Datos.EliminarCA(IdMarca);
+            return Datos.EliminarCA(IdCategoria);
         }
     }
 }

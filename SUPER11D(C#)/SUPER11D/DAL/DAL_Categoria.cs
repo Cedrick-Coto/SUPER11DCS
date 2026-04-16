@@ -51,6 +51,7 @@ namespace DAL
                 sqlCommand.Parameters.Add("@nOpcion", SqlDbType.Int).Value = nOpcion;
                 sqlCommand.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = ca.IdCategoria;
                 sqlCommand.Parameters.Add("@cDescripcion_ca", SqlDbType.VarChar).Value = ca.cDescripcion_ca;
+                sqlCommand.Parameters.Add("@Estado", SqlDbType.Bit).Value = ca.Estado;
                 sqlConnection.Open();
 
                 Rpta = sqlCommand.ExecuteNonQuery() == 1 ? "OK" : "No se pudo guardar el registro";

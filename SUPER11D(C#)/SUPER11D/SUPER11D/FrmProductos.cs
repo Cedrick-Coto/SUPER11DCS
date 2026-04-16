@@ -280,7 +280,7 @@ namespace SUPER11D
             this.IdMarca = GetIntFromCell(row, "IdMarca");
             txtMarcas.Text = GetStringFromCell(row, "DescripcionMa");
             this.IdUniMed = GetIntFromCell(row, "IdUniMed");
-            Txt_pu_venta.Text = GetStringFromCell(row, "DescripcionUn");
+            Txt_pu_venta.Text = GetStringFromCell(row, "Pu_venta");
             this.IdCategoria = GetIntFromCell(row, "IdCategoria");
             TxtCategorias.Text = GetStringFromCell(row, "DescripcionCa");
         }
@@ -356,7 +356,7 @@ namespace SUPER11D
         private void SeleccionaItemBOPR()
         {
             if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
-                    Cells["IdBodega"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia 
+                    Cells["IdBodega"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia
             {
 
                 MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
@@ -455,7 +455,7 @@ namespace SUPER11D
             }
         }
 
-        
+
 
         private void btnRegresar_Click(object sender, EventArgs e)
         {

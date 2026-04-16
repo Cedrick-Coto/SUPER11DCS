@@ -52,7 +52,7 @@ namespace DAL
                 //Tipo de comando a ejecutar (Procedimiento Almacenado)
                 comando.CommandType = CommandType.StoredProcedure;
                 //Parametro de busqueda para el procedimiento almacenado
-                comando.Parameters.Add("@nCodigo_sp", SqlDbType.Int, 250).Value = (object)nCodigo_sp;
+                comando.Parameters.Add("@nCodigo_sp", SqlDbType.Int).Value = (object)nCodigo_sp;
                 //Abrir la conexion
                 SqlCon.Open();
                 Resultado = comando.ExecuteReader();
@@ -100,7 +100,7 @@ namespace DAL
                 if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
             }
         }
-        
+
         public DataTable Listado_pr_sp(string ctexto)
         {
             SqlDataReader Resultado; //Guarda en Bruto
@@ -211,7 +211,7 @@ namespace DAL
                 SqlCommand sqlCommand = new SqlCommand("USP_Eliminar_sp", sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 //Parametro para el procedimiento almacenado
-                sqlCommand.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Codigo_sp;
+                sqlCommand.Parameters.Add("@Codigo_sp", SqlDbType.Int).Value = Codigo_sp;
                 sqlConnection.Open();
                 Rpta = sqlCommand.ExecuteNonQuery() > 0 ? "OK" : "No se pudo eliminar el registro";
             }

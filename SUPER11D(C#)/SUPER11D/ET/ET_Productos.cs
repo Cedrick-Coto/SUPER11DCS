@@ -2,6 +2,15 @@
 
 public class ET_Productos
 {
+    private int _idProducto;
+    private int _idMarca;
+    private string _descripcionPr;
+    private int _idUnidMed;
+    private int _idCategoria;
+    private decimal _StockMin;
+    private decimal _StockMax;
+    private decimal _Pu_venta;
+
     public int IdProducto
     {
         get => _idProducto;
@@ -49,14 +58,4 @@ public class ET_Productos
         get => _Pu_venta;
         set => _Pu_venta = value;
     }
-
-    private int _idProducto;
-    private int _idMarca;
-    private string _descripcionPr;
-    private int _idUnidMed;
-    private int _idCategoria;
-    private decimal _StockMin;
-    private decimal _StockMax;
-    private decimal _Pu_venta;
-    
 }
