@@ -424,6 +424,7 @@
             Btn_Quitar.TabIndex = 27;
             Btn_Quitar.Text = "Quitar";
             Btn_Quitar.UseVisualStyleBackColor = false;
+            Btn_Quitar.Click += Btn_Quitar_Click;
             //
             // Btn_Agregar
             //

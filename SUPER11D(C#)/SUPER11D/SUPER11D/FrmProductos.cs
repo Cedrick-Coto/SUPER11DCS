@@ -1,4 +1,4 @@
-// Referencia a la capa de Lï¿½gica de Negocio
+// Referencia a la capa de Lógica de Negocio
 using BL;
 // Referencia a la capa de Entidades
 using ET;
@@ -6,8 +6,8 @@ using ET;
 namespace SUPER11D
 {
     /// <summary>
-    /// Formulario para gestionar las categorï¿½as del sistema.
-    /// Permite listar, crear, actualizar y eliminar categorï¿½as.
+    /// Formulario para gestionar las categorías del sistema.
+    /// Permite listar, crear, actualizar y eliminar categorías.
     /// </summary>
     public partial class FrmProductos : Form
     {
@@ -23,221 +23,66 @@ namespace SUPER11D
         #region Mis variables globales
 
         // Variable que controla el estado de guardado:
-        // 0 = Sin acciï¿½n
-        // 1 = Insertar nueva categorï¿½a
-        // 2 = Actualizar categorï¿½a existente
+        // 0 = Sin acción
+        // 1 = Insertar nueva categoría
+        // 2 = Actualizar categoría existente
         int EstadoGuarda = 0;
 
-        // Almacena el ID de la categorï¿½a seleccionada para ediciï¿½n
-        // 0 = Nueva categorï¿½a
-        // >0 = Categorï¿½a existente
-        int IdProducto = 0;
-        int IdMarca = 0;
+        // Almacena el ID de la categoría seleccionada para edición
+        // 0 = Nueva categoría
+        // >0 = Categoría existente
         int IdCategoria = 0;
-        int IdUniMed = 0;
 
         #endregion
 
-        #region Helpers de lectura seguros
+        #region Mis Métodos
 
-        private int GetIntFromCell(DataGridViewRow row, string columnName, int defaultValue = 0)
+        /// <summary>
+        /// Configura el formato de las columnas del DataGridView.
+        /// Define el ancho y los encabezados de las columnas que se mostrarán.
+        /// </summary>
+        private void FormatoCA()
+        {
+            // Verifica que existan al menos 2 columnas antes de formatear
+            if (DgvPrincipal.Columns.Count >= 2)
+            {
+                // Columna 0: ID de la categoría
+                DgvPrincipal.Columns[0].Width = 100;
+                DgvPrincipal.Columns[0].HeaderText = "ID Categoria";
+
+                // Columna 1: Descripción de la categoría
+                DgvPrincipal.Columns[1].Width = 100;
+                DgvPrincipal.Columns[1].HeaderText = "Categoria";
+            }
+        }
+
+        /// Carga y muestra el listado de categorías en el DataGridView.
+        /// Ejecuta una consulta a la base de datos a través de las capas BL y DAL.
+        /// <param name="ctexto">Texto de búsqueda para filtrar categorías. 
+        /// Usar "%" para mostrar todas las categorías.</param>
+        private void ListadoCA(string ctexto)
         {
             try
             {
-                if (row == null) return defaultValue;
-                if (row.DataGridView == null) return defaultValue;
-                if (!row.DataGridView.Columns.Contains(columnName)) return defaultValue;
-                var val = row.Cells[columnName]?.Value;
-                if (val == null || val == DBNull.Value) return defaultValue;
-                if (val is int) return (int)val;
-                if (int.TryParse(val.ToString(), out int r)) return r;
-                if (long.TryParse(val.ToString(), out long rl) && rl <= int.MaxValue) return (int)rl;
-                return defaultValue;
-            }
-            catch
-            {
-                return defaultValue;
-            }
-        }
+                // Llama a la capa de negocio para obtener los datos
+                // y los asigna como origen de datos del DataGridView
+                DgvPrincipal.DataSource = BL_Categoria.ListadoCA(ctexto);
 
-        private string GetStringFromCell(DataGridViewRow row, string columnName)
-        {
-            try
-            {
-                if (row == null) return string.Empty;
-                if (row.DataGridView == null) return string.Empty;
-                if (!row.DataGridView.Columns.Contains(columnName)) return string.Empty;
-                var val = row.Cells[columnName]?.Value;
-                return (val == null || val == DBNull.Value) ? string.Empty : val.ToString();
-            }
-            catch
-            {
-                return string.Empty;
-            }
-        }
-
-        #endregion
-
-        #region Mis Metodos
-
-
-        private void FormatoPR()
-        {
-            DgvPrincipal.Columns[0].Width = 80;
-            DgvPrincipal.Columns[0].HeaderText = "ID PRODUCTO";
-            DgvPrincipal.Columns[1].Width = 240;
-            DgvPrincipal.Columns[1].HeaderText = "Producto";
-            DgvPrincipal.Columns[2].Width = 150;
-            DgvPrincipal.Columns[2].HeaderText = "Marca";
-            DgvPrincipal.Columns[3].Width = 80;
-            DgvPrincipal.Columns[3].HeaderText = "Uni. Med";
-            DgvPrincipal.Columns[4].Width = 100;
-            DgvPrincipal.Columns[4].HeaderText = "Categoria";
-            DgvPrincipal.Columns[5].Width = 80;
-            DgvPrincipal.Columns[5].HeaderText = "Stock Min";
-            DgvPrincipal.Columns[6].Width = 80;
-            DgvPrincipal.Columns[6].HeaderText = "Stock MAX";
-            DgvPrincipal.Columns[7].Visible = false;
-            DgvPrincipal.Columns[8].Visible = false;
-            DgvPrincipal.Columns[9].Visible = false;
-            DgvPrincipal.Columns[10].Visible = false;
-        }
-
-        private void FormatomaPR()
-        {
-            // Solo aplica formato si el Grid ya cargÃ³ las columnas desde la base de datos
-            if (DgvMarcas.Columns.Count > 0)
-            {
-                // Usamos nombres de columna en lugar de Ã­ndices [0] para ser mÃ¡s seguros
-                if (DgvMarcas.Columns.Contains("DescripcionMa"))
-                {
-                    DgvMarcas.Columns["DescripcionMa"].Width = 215;
-                    DgvMarcas.Columns["DescripcionMa"].HeaderText = "Marca";
-                }
-
-                if (DgvMarcas.Columns.Contains("IdMarca"))
-                {
-                    DgvMarcas.Columns["IdMarca"].Visible = false;
-                }
-            }
-        }
-        private void FormatocaPR()
-        {
-            if (DgvCategorias.Columns.Count >= 2)
-            {
-                DgvCategorias.Columns[0].Width = 215;
-                DgvCategorias.Columns[0].HeaderText = "Categoria";
-                DgvCategorias.Columns[1].Visible = false;
-            }
-        }
-
-        private void FormatoStockActualPR()
-        {
-            if (DgvBodega.Columns.Count >= 3) // Validamos que existan al menos 3 columnas
-            {
-                DgvBodega.Columns[0].Width = 95;
-                DgvBodega.Columns[0].HeaderText = "Bodega";
-
-                DgvBodega.Columns[1].Width = 65; // Cambiado a Ã­ndice 1
-                DgvBodega.Columns[1].HeaderText = "Stock Actual";
-
-                DgvBodega.Columns[2].Width = 65; // Cambiado a Ã­ndice 2
-                DgvBodega.Columns[2].HeaderText = "Costo Unidad";
-            }
-        }
-        private void FormatoumPR()
-        {
-            if (DgvMedidas.Columns.Count > 0)
-            {
-                DgvMedidas.Columns[0].Width = 215;
-                DgvMedidas.Columns[0].HeaderText = "Medida"; // Corregido: DecÃ­a "Marca"
-
-                if (DgvMedidas.Columns.Count > 1)
-                {
-                    DgvMedidas.Columns[1].Visible = false;
-                }
-            }
-        }
-
-        private void ListadoPR(string ctexto)
-        {
-            try
-            {
-                try
-                {
-                    // Llama a la capa de negocio para obtener los datos
-                    // y los asigna como origen de datos del DataGridView
-                    DgvPrincipal.DataSource = BL_Productos.ListadoPR(ctexto);
-
-                    // Aplica el formato a las columnas del DataGridView
-                    this.FormatoPR();
-                }
-                catch (Exception ex)
-                {
-                    // Captura cualquier error y lo muestra al usuario
-                    // con detalles para facilitar la depuraciï¿½n
-                    MessageBox.Show($"Error al cargar datos: {ex.Message}\n\nStackTrace: {ex.StackTrace}",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-        // Para Unidades de Medida
-        private void ListadoUMPR(string ctexto)
-        {
-            DgvMedidas.DataSource = BL_Productos.ListadoUMPR(ctexto); // Usar DgvMedidas
-            this.FormatoumPR();
-        }
-        private void ListadoCAPR(string ctexto)
-        {
-            try
-            {
-                // CORRECCIÃ“N: Asignar al DGV del panel de categorÃ­as, no al principal
-                DgvCategorias.DataSource = BL_Productos.ListadoCAPR(ctexto);
-                this.FormatocaPR();
+                // Aplica el formato a las columnas del DataGridView
+                this.FormatoCA();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar categorÃ­as: {ex.Message}", "Error");
-            }
-        }
-        private void ListadoMAPR(string ctexto)
-        {
-            DgvMarcas.DataSource = BL_Productos.ListadoMAPR(ctexto); // Usar DgvMarcas
-            this.FormatomaPR();
-        }
-        private void ListadoStockActualPR(int cIdProducto)
-        {
-            try
-            {
-                try
-                {
-                    // Llama a la capa de negocio para obtener los datos
-                    // y los asigna como origen de datos del DataGridView
-                    DgvBodega.DataSource = BL_Productos.Ver_Stock_Actual_Prod_xBodegas(cIdProducto);
-
-                    // Aplica el formato al grid de bodegas
-                    this.FormatoStockActualPR();
-                }
-                catch (Exception ex)
-                {
-                    // Captura cualquier error y lo muestra al usuario
-                    // con detalles para facilitar la depuraciï¿½n
-                    MessageBox.Show($"Error al cargar datos: {ex.Message}\n\nStackTrace: {ex.StackTrace}",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
+                // Captura cualquier error y lo muestra al usuario
+                // con detalles para facilitar la depuración
+                MessageBox.Show($"Error al cargar datos: {ex.Message}\n\nStackTrace: {ex.StackTrace}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+
+        /// Controla el estado (habilitado/deshabilitado) de los botones principales del formulario.
+        /// <param name="LEstado">true = habilita los botones, false = deshabilita los botones</param>
         private void EstadoBotonesPrincipales(bool LEstado)
         {
             // Habilita o deshabilita los botones de acciones principales
@@ -249,6 +94,9 @@ namespace SUPER11D
         }
 
 
+        /// Controla la visibilidad de los botones de procesos (Guardar, Cancelar, Regresar).
+
+        /// name="LEstado">true = muestra los botones, false = oculta los botones
         private void EstadoBotonesProcesos(bool LEstado)
         {
             // Muestra u oculta los botones de procesos de mantenimiento
@@ -258,105 +106,11 @@ namespace SUPER11D
         }
 
         #endregion
+
         private void SeleccionaItem()
         {
-            var row = DgvPrincipal.CurrentRow;
-            if (row == null)
-            {
-                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (string.IsNullOrEmpty(GetStringFromCell(row, "IdProducto")))
-            {
-                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            this.IdProducto = GetIntFromCell(row, "IdProducto");
-            txtDescripPr.Text = GetStringFromCell(row, "DescripcionPr");
-            this.IdMarca = GetIntFromCell(row, "IdMarca");
-            txtMarcas.Text = GetStringFromCell(row, "DescripcionMa");
-            this.IdUniMed = GetIntFromCell(row, "IdUniMed");
-            Txt_pu_venta.Text = GetStringFromCell(row, "DescripcionUn");
-            this.IdCategoria = GetIntFromCell(row, "IdCategoria");
-            TxtCategorias.Text = GetStringFromCell(row, "DescripcionCa");
-        }
-        private void SeleccionaItemPR()
-        {
-            var row = DgvPrincipal.CurrentRow;
-            if (row == null)
-            {
-                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (string.IsNullOrEmpty(GetStringFromCell(row, "IdProducto")))
-            {
-                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            this.IdProducto = GetIntFromCell(row, "IdProducto");
-            txtDescripPr.Text = GetStringFromCell(row, "DescripcionPr");
-        }
-        private void SeleccionaItemMAPR()
-        {
-            if (DgvMarcas.CurrentRow == null) return;
-
-            var row = DgvMarcas.CurrentRow;
-            object idVal = null;
-            object descVal = null;
-
-            if (DgvMarcas.Columns.Contains("IdMarca"))
-                idVal = row.Cells["IdMarca"].Value;
-            else if (row.Cells.Count > 1)
-                idVal = row.Cells[1].Value;
-            else if (row.Cells.Count > 0)
-                idVal = row.Cells[0].Value;
-
-            if (DgvMarcas.Columns.Contains("DescripcionMa"))
-                descVal = row.Cells["DescripcionMa"].Value;
-            else if (row.Cells.Count > 0)
-                descVal = row.Cells[0].Value;
-
-            int parsedId = 0;
-            if (idVal != null && idVal != DBNull.Value)
-                int.TryParse(idVal.ToString(), out parsedId);
-
-            this.IdMarca = parsedId;
-            txtMarcas.Text = descVal == null || descVal == DBNull.Value ? string.Empty : descVal.ToString();
-
-            Pnl_Marca.Visible = false;
-        }
-        private void SeleccionaItemCAPR()
-        {
-            // Corregido: Leer de DgvCategorias, NO de DgvPrincipal
-            if (DgvCategorias.CurrentRow != null)
-            {
-                this.IdCategoria = Convert.ToInt32(DgvCategorias.CurrentRow.Cells[1].Value);
-                TxtCategorias.Text = Convert.ToString(DgvCategorias.CurrentRow.Cells[0].Value);
-                Pnl_Categorias.Visible = false;
-            }
-        }
-        private void SeleccionaItemUMPR()
-        {
-            // Corregido: Leer de DgvMedidas
-            if (DgvMedidas.CurrentRow != null)
-            {
-                this.IdUniMed = Convert.ToInt32(DgvMedidas.CurrentRow.Cells[1].Value);
-                TxtMedidas.Text = Convert.ToString(DgvMedidas.CurrentRow.Cells[0].Value);
-                Pnl_Unid_med.Visible = false;
-            }
-        }
-        private void SeleccionaItemBOPR()
-        {
             if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
-                    Cells["IdBodega"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia 
+                Cells["IdProductos"].Value)))//valida si el campo id Producto de la fila seleccionada esta vacia 
             {
 
                 MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
@@ -367,24 +121,21 @@ namespace SUPER11D
             else
             {
                 this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.
-                    Cells["IdBodega"].Value);
+                    Cells["IdProducto"].Value);
                 txtDescripPr.Text = Convert.ToString(DgvPrincipal.CurrentRow.
-                    Cells["cIdProducto"].Value);
+                Cells["DescripcionCa"].Value);
             }
         }
         #region Eventos del Formulario
 
 
+        /// Evento que se ejecuta cuando el formulario se carga por primera vez.
+        /// Inicializa el estado del formulario y carga los datos iniciales.
 
-
-        private void FrmProductos_Load(object sender, EventArgs e)
+        private void FrmCategorias_Load(object sender, EventArgs e)
         {
-            // Carga todas las categorï¿½as (% = comodï¿½n para traer todos los registros)
-            this.ListadoPR("%");
-            this.ListadoCAPR("%");
-            this.ListadoMAPR("%");
-            this.ListadoUMPR("%");
-            this.ListadoStockActualPR(0);
+            // Carga todas las categorías (% = comodín para traer todos los registros)
+            this.ListadoCA("%");
 
             // Habilita los botones principales (Nuevo, Actualizar, Eliminar, etc.)
             this.EstadoBotonesPrincipales(true);
@@ -397,65 +148,103 @@ namespace SUPER11D
         }
 
 
-
+        /// Evento del botón Nuevo.
+        /// Prepara el formulario para ingresar una nueva categoría.
         private void btnNuevo_Click(object sender, EventArgs e)
         {
+            // Establece el estado a 1 (Insertar nueva categoría)
             EstadoGuarda = 1;
+
+            // Deshabilita los botones principales para evitar conflictos
             this.EstadoBotonesPrincipales(false);
+
+            // Muestra los botones de proceso (Guardar, Cancelar, Regresar)
             this.EstadoBotonesProcesos(true);
+
+            // Limpia el campo de texto
+            txtDescripPr.Text = "";
+
+            // Habilita el campo de texto para permitir la escritura
             txtDescripPr.ReadOnly = false;
+
+            // Cambia a la pestaña de Mantenimiento (índice 1)
             TbpPrincipal.SelectedIndex = 1;
-            TxtMinimo.Text = "0";
-            TxtMaximo.Text = "0";
+
+            // Coloca el cursor en el campo de texto para que el usuario pueda escribir inmediatamente
             txtDescripPr.Focus();
-            Pnl_Stock_Bodega.Visible = false;
         }
 
+        /// Evento del botón Guardar.
+        /// Valida y guarda la categoría (nueva o actualizada) en la base de datos.
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (txtDescripPr.Text == String.Empty || txtMarcas.Text == String.Empty || TxtMedidas.Text == String.Empty || TxtCategorias.Text == String.Empty || Txt_pu_venta.Text == String.Empty || TxtMaximo.Text == String.Empty || TxtMinimo.Text == String.Empty)
+            // Valida que el campo de descripción no esté vacío
+            if (txtDescripPr.Text == String.Empty)
             {
-                MessageBox.Show("No hay datos que mostrar", "Aviso del sistema",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Muestra un mensaje de advertencia si no se ingresó descripción
+                MessageBox.Show("Debe ingresar una descripción para el producto",
+                    "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
-                ET_Productos eT_Productos = new ET_Productos();
+                // Crea una instancia de la entidad Categoría
+                ET_Categoria eT_Categoria = new ET_Categoria();
+
+                // Variable para almacenar la respuesta del proceso de guardado
                 string Rpta = "";
-                eT_Productos.IdProducto = this.IdProducto;
-                eT_Productos.DescripcionPr = txtDescripPr.Text.Trim();
-                eT_Productos.IdMarca = this.IdMarca;
-                eT_Productos.IdUnidMed = this.IdUniMed;
-                eT_Productos.IdCategoria = this.IdCategoria;
-                eT_Productos.StockMin = Convert.ToDecimal(TxtMinimo.Text);
-                eT_Productos.StockMax = Convert.ToDecimal(TxtMaximo.Text);
-                eT_Productos.Pu_venta = Convert.ToDecimal(Txt_pu_venta.Text);
-                Rpta = BL_Productos.GuardarPR(EstadoGuarda, eT_Productos);
+
+                // Asigna el ID de la categoría (0 para nueva, >0 para actualizar)
+                eT_Categoria.IdCategoria = IdCategoria;
+
+                // Asigna la descripción ingresada, eliminando espacios al inicio y final
+                eT_Categoria.DescripcionCat = txtDescripPr.Text.Trim();
+
+                // Llama al método de la capa de negocio para guardar la categoría
+                // EstadoGuarda indica si es inserción (1) o actualización (2)
+                Rpta = BL_Categoria.GuardarCA(EstadoGuarda, eT_Categoria);
+
+                // Verifica si el guardado fue exitoso
                 if (Rpta == "OK")
                 {
-                    this.ListadoPR("%");
-                    MessageBox.Show("Los datos se han registrado", "Aviso del sistema",
-                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Recarga el listado de categorías para mostrar los cambios
+                    this.ListadoCA("%");
+
+                    // Muestra mensaje de confirmación al usuario
+                    MessageBox.Show("Los datos se guardaron correctamente",
+                        "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Restablece el estado de guardado a 0 (sin acción)
                     EstadoGuarda = 0;
+
+                    // Habilita los botones principales nuevamente
                     this.EstadoBotonesPrincipales(true);
+
+                    // Oculta los botones de procesos
                     this.EstadoBotonesProcesos(false);
+
+                    // Limpia el campo de texto
                     txtDescripPr.Text = "";
-                    TxtMaximo.Text = "0";
-                    TxtMinimo.Text = "0";
-                    Txt_pu_venta.Text = "0";
+
+                    // Bloquea el campo de texto
                     txtDescripPr.ReadOnly = true;
-                    TxtMaximo.ReadOnly = true;
-                    TxtMinimo.ReadOnly = true;
-                    Txt_pu_venta.ReadOnly = true;
+
+                    // Regresa a la pestaña de Listado (índice 0)
                     TbpPrincipal.SelectedIndex = 0;
-                    this.IdMarca = 0;
-                    this.Pnl_Stock_Bodega.Visible = false;
+
+                    // Reinicia el ID de categoría a 0
+                    this.IdCategoria = 0;
+                }
+                else
+                {
+                    // Si hubo un error, muestra el mensaje de error recibido
+                    MessageBox.Show($"Error al guardar los datos: {Rpta}",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        
+        #endregion
 
         private void btnRegresar_Click(object sender, EventArgs e)
         {
@@ -470,15 +259,10 @@ namespace SUPER11D
             EstadoGuarda = 2;
             this.EstadoBotonesPrincipales(false);
             this.EstadoBotonesProcesos(true);
-            this.SeleccionaItemPR();
+            this.SeleccionaItem();
             txtDescripPr.ReadOnly = false;
             TbpPrincipal.SelectedIndex = 1;
-            TxtMaximo.ReadOnly = false;
-            TxtMinimo.ReadOnly = false;
-            Txt_pu_venta.ReadOnly = false;
-            this.IdMarca = 0;
             txtDescripPr.Focus();
-            Pnl_Stock_Bodega.Visible = false;
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -488,13 +272,13 @@ namespace SUPER11D
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.ListadoPR(TxtBuscar.Text.Trim());
+            this.ListadoCA(TxtBuscar.Text.Trim());
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(Convert.ToString(DgvPrincipal.CurrentRow.
-                  Cells["IdProducto"].Value)))
+                  Cells["IdCategoria"].Value)))//valida si el campo id categoria de la fila seleccionada esta vacia 
             {
 
                 MessageBox.Show("No se pudo seleccionar el registro ", "Aviso del sistema",
@@ -504,7 +288,7 @@ namespace SUPER11D
             else
             {
                 DialogResult opcion;
-                opcion = MessageBox.Show("ï¿½Esta seguro de eliminar el registro seleccionado?",
+                opcion = MessageBox.Show("¿Esta seguro de eliminar el registro seleccionado?",
                     "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (opcion == DialogResult.Yes)
@@ -513,15 +297,15 @@ namespace SUPER11D
                     string Rpta = "";
 
 
-                    this.IdProducto = Convert.ToInt32(DgvPrincipal.CurrentRow.
-                    Cells["IdProducto"].Value);
+                    this.IdCategoria = Convert.ToInt32(DgvPrincipal.CurrentRow.
+                    Cells["IdCategoria"].Value);
 
-                    Rpta = BL_Productos.EliminarPR(this.IdProducto);
+                    Rpta = BL_Categoria.ElminarCA(this.IdCategoria);
 
                     if (Rpta.Equals("OK"))
                     {
-                        this.ListadoPR("%");
-                        this.IdProducto = 0;
+                        ListadoCA("%");
+                        this.IdCategoria = 0;
                         MessageBox.Show("Resgistro eliminado", "Aviso del sistema",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
@@ -545,59 +329,5 @@ namespace SUPER11D
         {
 
         }
-
-        private void BtnLupa1_Click(object sender, EventArgs e)
-        {
-            this.Pnl_Marca.Location = BtnLupa1.Location;
-            this.Pnl_Marca.Visible = true;
-        }
-
-        private void BtnLupa2_Click(object sender, EventArgs e)
-        {
-            this.Pnl_Unid_med.Location = BtnLupa2.Location;
-            this.Pnl_Unid_med.Visible = true;
-        }
-
-        private void BtnLupa3_Click(object sender, EventArgs e)
-        {
-            this.Pnl_Categorias.Location = BtnLupa3.Location;
-            this.Pnl_Categorias.Visible = true;
-        }
-
-        private void DgvCategorias_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            this.SeleccionaItemCAPR();
-            Pnl_Categorias.Visible = false;
-        }
-
-        private void DgvMarcas_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            this.SeleccionaItemMAPR();
-            Pnl_Marca.Visible = false;
-        }
-        private void DgvPrincipal_DoubleClick(object sender, EventArgs e)
-        {
-            this.SeleccionaItem();
-            this.EstadoBotonesProcesos(false);
-            TbpPrincipal.SelectedIndex = 1;
-            this.ListadoStockActualPR(this.IdProducto);
-            this.Pnl_Stock_Bodega.Visible = true;
-        }
-        private void DgvMedidas_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            this.SeleccionaItemUMPR();
-            this.Pnl_Unid_med.Visible = false;
-        }
-
-        private void btnRetorna1_Click(object sender, EventArgs e)
-        {
-            Pnl_Marca.Visible = false;
-        }
-
-        private void btnBuscar1_Click(object sender, EventArgs e)
-        {
-            ListadoMAPR(txtMarcas.Text.Trim());
-        }
-        #endregion
     }
 }
